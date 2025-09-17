@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Novo Atendimento</title>
+    <link rel="stylesheet" href="form-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- O HEADER COM O H1 AGORA ESTÁ DENTRO DO FORMULÁRIO -->
+        <form id="attendanceForm">
+            <header>
+                <h1>Registro de Atendimento em Visita</h1>
+            </header>
+
+            <!-- SEÇÃO 1: INFORMAÇÕES DO CLIENTE (Ainda mais compacta) -->
+            <section class="card section-client-info">
+                <h2><i class="fas fa-user-tag icon"></i> Informações do Cliente</h2>
+                <div class="form-row-tight">
+                    <div class="input-group input-code">
+                        <label for="clientCode">Código</label>
+                        <input type="text" id="clientCode" name="clientCode" placeholder="C001" required>
+                    </div>
+                    <div class="input-group input-name">
+                        <label for="clientName">Nome do Cliente</label>
+                        <input type="text" id="clientName" name="clientName" placeholder="Nome completo" required>
+                    </div>
+                </div>
+                <div class="form-row-tight">
+                    <div class="input-group search-input input-responsible-search">
+                        <label for="clientResponsibleSearch">Buscar Responsável</label>
+                        <input type="text" id="clientResponsibleSearch" name="clientResponsibleSearch" placeholder="Nome do responsável" aria-label="Buscar responsável do cliente">
+                        <button type="button" class="search-button" title="Buscar Responsável"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="input-group input-responsible-select">
+                        <label for="responsibleSelection">Responsável Selecionado</label>
+                        <select id="responsibleSelection" name="responsibleSelection" required>
+                            <option value="">Selecione um responsável</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: DETALHES DO DESLOCAMENTO E VISITA (Máxima Compactação) -->
+            <section class="card section-visit-details">
+                <h2><i class="fas fa-route icon"></i> Detalhes da Visita e Deslocamento</h2>
+                
+                <div class="time-events-grid">
+                    <!-- Evento 1: Saída da Empresa -->
+                    <div class="event-time-block">
+                        <label>Saída da Empresa:</label>
+                        <div class="date-time-inputs">
+                            <input type="date" id="departureCompanyDate" name="departureCompanyDate" value="2025-09-17" required>
+                            <input type="time" id="departureCompanyTime" name="departureCompanyTime" value="09:15" required>
+                        </div>
+                    </div>
+                    <!-- Evento 2: Chegada ao Cliente -->
+                    <div class="event-time-block">
+                        <label>Chegada ao Cliente:</label>
+                        <div class="date-time-inputs">
+                            <input type="date" id="arrivalClientDate" name="arrivalClientDate" value="2025-09-17" required>
+                            <input type="time" id="arrivalClientTime" name="arrivalClientTime" value="10:15" required>
+                        </div>
+                    </div>
+                    <!-- Evento 3: Saída do Cliente -->
+                    <div class="event-time-block">
+                        <label>Saída do Cliente:</label>
+                        <div class="date-time-inputs">
+                            <input type="date" id="departureClientDate" name="departureClientDate" value="2025-09-17" required>
+                            <input type="time" id="departureClientTime" name="departureClientTime" value="11:15" required>
+                        </div>
+                    </div>
+                    <!-- Evento 4: Chegada na Empresa -->
+                    <div class="event-time-block">
+                        <label>Chegada na Empresa:</label>
+                        <div class="date-time-inputs">
+                            <input type="date" id="arrivalCompanyDate" name="arrivalCompanyDate" value="2025-09-17" required>
+                            <input type="time" id="arrivalCompanyTime" name="arrivalCompanyTime" value="12:00" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-tight km-fields-row">
+                    <div class="input-group">
+                        <label for="kmInitial">Km Inicial</label>
+                        <input type="number" id="kmInitial" name="kmInitial" placeholder="00000" step="0.1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="kmFinal">Km Final</label>
+                        <input type="number" id="kmFinal" name="kmFinal" placeholder="00000" step="0.1" required>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 3: DESPESAS (Compacta) -->
+            <section class="card section-expenses">
+                <h2><i class="fas fa-money-bill-wave icon"></i> Despesas</h2>
+                <div class="expenses-grid">
+                    <div class="input-group">
+                        <label for="tollCost">Pedágio (R\$)</label>
+                        <input type="number" id="tollCost" name="tollCost" placeholder="0.00" step="0.01" value="0.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="foodCost">Alimentação (R\$)</label>
+                        <input type="number" id="foodCost" name="foodCost" placeholder="0.00" step="0.01" value="0.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="lodgingCost">Estadia (R\$)</label>
+                        <input type="number" id="lodgingCost" name="lodgingCost" placeholder="0.00" step="0.01" value="0.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="parkingCost">Estacionamento (R\$)</label>
+                        <input type="number" id="parkingCost" name="parkingCost" placeholder="0.00" step="0.01" value="0.00">
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 4: ATIVIDADES REALIZADAS (Mais Compacta) -->
+            <section class="card section-activities">
+                <h2><i class="fas fa-tasks icon"></i> Atividades Realizadas</h2>
+                <div class="activity-inputs-grid">
+                    <div class="input-group">
+                        <label for="activityModule">Módulo</label>
+                        <input type="text" id="activityModule" name="activityModule" placeholder="Ex: CRM">
+                    </div>
+                    <div class="input-group">
+                        <label for="activityContact">Contato</label>
+                        <input type="text" id="activityContact" name="activityContact" placeholder="Pessoa de contato">
+                    </div>
+                    <div class="input-group input-description">
+                        <label for="activityDescription">Descrição</label>
+                        <textarea id="activityDescription" name="activityDescription" rows="1" placeholder="Detalhes do que foi feito..."></textarea>
+                    </div>
+                </div>
+                <button type="button" id="addActivityBtn" class="button button-secondary button-add-activity">
+                    <i class="fas fa-plus-circle"></i> Incluir Atividade
+                </button>
+
+                <div class="activity-list">
+                    <h3>Atividades Inclusas:</h3>
+                    <ul id="activitiesIncluded">
+                        <!-- Atividades serão adicionadas aqui via JavaScript -->
+                    </ul>
+                    <p id="noActivitiesMessage" class="empty-state">Nenhuma atividade adicionada ainda.</p>
+                </div>
+            </section>
+
+            <!-- BOTÕES DE AÇÃO PRINCIPAIS -->
+            <div class="form-actions">
+                <button type="submit" class="button button-primary"><i class="fas fa-check-circle"></i> Incluir Atendimento</button>
+                <button type="button" class="button button-tertiary"><i class="fas fa-arrow-left"></i> Voltar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="form-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1476 @@
+/* Estilos para o Modal de Gerenciamento de Checklist Oficial */
+#officialChecklistManagerModal .modal-content,
+#editProjectOfficialChecklistModal .modal-content,
+#updateOfficialChecklistModal .modal-content {
+    max-width: 700px; /* Ajusta a largura conforme necessário */
+}
+.official-checklist-list, .official-checklist-items-list {
+    margin-top: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.official-checklist-item-manage {
+    background: #f0f4f8;
+    border: 1px solid #d9e2ec;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.official-checklist-item-details {
+    flex-grow: 1;
+}
+.official-checklist-item-name {
+    font-weight: 600;
+    color: #1f2937;
+}
+.official-checklist-item-count {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.official-checklist-item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.official-checklist-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.official-checklist-input-group input {
+    flex-grow: 1;
+}
+/* Estilos para Edição/Atualização de Checklist Específico do Projeto */
+.project-checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted #e5e7eb;
+}
+.project-checklist-item:last-child {
+    border-bottom: none;
+}
+.project-checklist-item-text {
+    flex-grow: 1;
+    color: #374151;
+}
+.project-checklist-item-checkbox {
+    margin-top: 0.25rem; /* Alinha o checkbox com o texto */
+}
+.project-checklist-item-description {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+    padding-left: 1.5rem; /* Recua a descrição */
+}
+.project-checklist-item.completed .project-checklist-item-text {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+.checklist-progress-summary {
+    text-align: right;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+}
+/* Reset e estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    line-height: 1.6;
+}
+.login-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.login-box {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    width: 100%;
+    max-width: 28rem;
+}
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.logo {
+    font-size: 3rem;
+    color: #2563eb;
+    margin-bottom: 1rem;
+}
+.app-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+.app-subtitle {
+    color: #6b7280;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+.form-input, .form-textarea, .form-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    gap: 0.5rem;
+}
+.btn-primary {
+    background-color: #2563eb;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+.btn-success {
+    background-color: #10b981;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #059669;
+}
+.btn-danger {
+    background-color: #ef4444;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+.btn-sm { /* Botão pequeno para ícones */
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 0.375rem;
+}
+.hidden {
+    display: none !important;
+}
+.container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+.header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    flex-wrap: wrap; /* Permite quebrar linha para telas menores */
+    gap: 0.5rem;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap; /* Permite quebrar linha para telas menores */
+    justify-content: flex-end;
+}
+.logo-header {
+    font-size: 1.5rem;
+    color: #2563eb;
+}
+.app-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+}
+.dashboard {
+    padding: 1.5rem 0;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+}
+.stat-value {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+.stat-icon {
+    font-size: 2rem;
+    color: #2563eb;
+}
+.tabs {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 1.5rem;
+    flex-wrap: wrap; /* Permite quebrar linha para telas menores */
+}
+.tab-btn {
+    padding: 1rem 0.5rem;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    margin-right: 2rem;
+    transition: all 0.2s;
+}
+.tab-btn.active {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+.tab-btn:hover {
+    color: #374151;
+}
+.tab-content {
+    padding: 1.5rem;
+}
+.tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap; /* Permite quebrar linha para telas menores */
+    gap: 0.5rem;
+}
+.tab-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.tab-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap; /* Permite quebrar linha para telas menores */
+    justify-content: flex-end;
+}
+.project-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+}
+.project-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+.project-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+.project-client {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.project-description {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+.status-planning {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+.status-executing {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+.status-completed {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+.project-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.project-stat-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.project-stat-value {
+    font-weight: 500;
+}
+.progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.progress-track {
+    flex: 1;
+    height: 0.5rem;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background-color: #2563eb;
+    transition: width 0.5s ease;
+}
+.progress-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que os botões quebrem linha em telas menores */
+    gap: 0.5rem;
+}
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.project-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap; /* Permite que os botões quebrem linha em telas menores */
+    justify-content: flex-end;
+}
+.action-btn {
+    padding: 0.25rem 0.5rem;
+    border: none;
+    background: none;
+    font-size: 0.875rem;
+    color: #2563eb;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+}
+.action-btn:hover {
+    background-color: #f3f4f6;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.modal.active {
+    display: flex;
+}
+.modal-content {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 90rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+/* Estilo para o Modal do Dashboard de BI ser maior */
+#biDashboardModal .modal-content {
+    max-width: 100vw; /* Alterado para 100vw */
+    max-height: 100vh; /* Alterado para 100vh */
+    width: 100%; /* Alterado para 100% */
+    height: 100%; /* Alterado para 100% */
+    border-radius: 0; /* Remove borda para preencher a tela */
+    display: flex;
+    flex-direction: column;
+}
+#biDashboardModal .modal-body {
+    padding: 0; /* Remove padding para iframe */
+    flex-grow: 1; /* Faz preencher o espaço disponível */
+    display: flex; /* Usa flex para garantir que o iframe preencha */
+}
+#biDashboardModal iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* Estilos Específicos do Modal de Visualização de Projeto */
+/* Modal de Visualização de Projeto - Tamanho Padrão */
+#projectViewModal .modal-content {
+    max-width: 90rem; /* Mesmo tamanho das outras modals */
+    max-height: 90vh;
+    width: 100%;
+    height: auto;
+}
+#projectViewModal .modal-body {
+    overflow-y: visible; /* Deixa o overflow da modal-content lidar com a rolagem */
+}
+/* Estilos Específicos do Modal de Atualização de Processo */
+#updateProcessModal .modal-content {
+    max-width: 90rem; /* Um pouco mais largo para a lista de processos */
+}
+.process-update-list {
+    margin-top: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+.process-update-list-group {
+    background-color: #f0f4f8;
+    border: 1px solid #d9e2ec;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+.process-update-list-group-title {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #d1d5db;
+}
+.process-update-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed #e5e7eb;
+}
+.process-update-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.process-update-item .process-name {
+    flex-basis: 40%;
+    font-weight: 500;
+    color: #1f2937;
+}
+.process-update-item .current-status {
+    flex-basis: 20%;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.process-update-item .status-select {
+    flex-basis: 30%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+.process-update-item .process-update-progress {
+    flex-basis: 10%;
+    font-size: 0.875rem;
+    color: #374151;
+    text-align: right;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+.modal-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.modal-close {
+    padding: 0.5rem;
+    border: none;
+    background: none;
+    color: #9ca3af;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+    font-size: 1.5rem;
+}
+.modal-close:hover {
+    color: #6b7280;
+}
+.modal-body {
+    padding: 1.5rem;
+}
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.notification {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 9999;
+    min-width: 18.75rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease-out;
+}
+.notification.success {
+    background-color: #10b981;
+}
+.notification.error {
+    background-color: #ef4444;
+}
+.notification.info {
+    background-color: #2563eb;
+}
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+.test-users {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+}
+.test-users h4 {
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+.user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+.quick-login {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.625rem;
+    cursor: pointer;
+}
+.quick-login:hover {
+    background: #1d4ed8;
+}
+/* Estilos Específicos do Modal de Visualização de Projeto */
+.project-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.project-detail-item {
+    padding: 0.75rem;
+    background-color: #f9fafb;
+    border-radius: 0.375rem;
+    border: 1px solid #e5e7eb;
+}
+.project-detail-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+.project-detail-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1f2937;
+}
+.project-detail-full {
+    grid-column: span 2;
+}
+.project-detail-processes-list {
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+}
+.project-detail-processes-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+.project-detail-processes-list li {
+    background-color: #eef2ff;
+    border: 1px solid #c7d2fe;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #3b82f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.project-detail-processes-list li .process-progress-bar {
+    flex-grow: 1;
+    height: 8px;
+    background-color: #d1d5db;
+    margin-left: 10px;
+    overflow: hidden;
+}
+.project-detail-processes-list li .process-progress-fill {
+    height: 100%;
+    background-color: #10b981;
+    border-radius: 4px;
+}
+.project-detail-processes-list li .process-progress-text {
+    font-size: 0.75rem;
+    margin-left: 5px;
+    color: #374151;
+}
+/* Novo: Estilos para processos agrupados na visualização do projeto */
+.project-detail-processes-list .process-group-item {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: #e0e7ff; /* Azul mais claro para o fundo do grupo */
+    border-radius: 0.375rem;
+    border: 1px solid #a7b7f8;
+}
+.project-detail-processes-list .process-group-title {
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #c7d2fe;
+}
+.project-detail-processes-list .process-group-item ul {
+    padding-left: 1rem;
+}
+.project-detail-processes-list .process-group-item li {
+    background-color: transparent; /* Sobrescreve o fundo padrão do li */
+    border: none;
+    padding: 0.25rem 0;
+    margin-bottom: 0.25rem;
+    color: #3b82f6;
+    font-size: 0.85rem;
+}
+.project-detail-attachments ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+}
+.project-detail-attachments li {
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.project-detail-attachments li .status-icon {
+    font-size: 1rem;
+}
+/* Estilos do Gráfico de Gantt */
+.gantt-chart {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    overflow-x: auto; /* Permite rolagem horizontal */
+    min-height: 200px; /* Garante alguma altura mesmo que vazio */
+}
+.gantt-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+.gantt-chart-header div {
+    font-weight: bold;
+    color: #374151;
+    text-align: center;
+    flex-shrink: 0;
+}
+.gantt-chart-header .gantt-col-name { width: 25%; text-align: left; }
+.gantt-chart-header .gantt-col-bar { flex-grow: 1; }
+.gantt-chart-header .gantt-col-status { width: 15%; }
+.gantt-chart-header .gantt-col-dates { width: 25%; }
+.gantt-project-row {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #e5e7eb;
+}
+.gantt-project-row:last-child {
+    border-bottom: none;
+}
+.gantt-project-main {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+.gantt-project-name {
+    width: 25%;
+    font-weight: 600;
+    color: #1f2937;
+}
+.gantt-bar-container {
+    flex-grow: 1;
+    height: 20px;
+    background-color: #e5e7eb;
+    border-radius: 10px;
+    margin: 0 1rem;
+    position: relative;
+}
+.gantt-bar {
+    height: 100%;
+    background-color: #2563eb;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 0.5s ease;
+}
+.gantt-progress-overlay {
+    background-color: #10b981; /* Verde para progresso */
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 10px;
+    opacity: 0.8;
+}
+.gantt-status-text {
+    width: 15%;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+}
+.gantt-date-range {
+    width: 25%;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+}
+.gantt-no-projects {
+    text-align: center;
+    color: #6b7280;
+    padding: 2rem;
+}
+/* Lista de Processos do Gantt */
+.gantt-process-list {
+    margin-top: 0.5rem;
+    padding-left: 25%; /* Recua os processos para alinhar com a barra principal */
+}
+.gantt-process-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.gantt-process-list li {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #4b5563;
+    margin-bottom: 0.3rem;
+}
+.gantt-process-list li .process-name {
+    width: 30%; /* Ajusta conforme necessário */
+    flex-shrink: 0;
+}
+.gantt-process-list li .process-bar-container {
+    flex-grow: 1;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    margin: 0 0.5rem;
+    overflow: hidden;
+}
+.gantt-process-list li .process-bar-fill {
+    height: 100%;
+    background-color: #3b82f6; /* Azul para o progresso do processo */
+    border-radius: 4px;
+}
+.gantt-process-list li .process-status-text {
+    width: 15%;
+    text-align: right;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+/* Novo: Estilo para grupo de processos do Gantt */
+.gantt-process-group {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #2563eb;
+    border-bottom: 1px dotted #c7d2fe;
+    padding-bottom: 0.25rem;
+}
+.gantt-process-group ul {
+    padding-left: 1rem; /* Recua os processos dentro de um grupo */
+}
+/* Estilos do Modal de Gerenciamento de Fluxo */
+#flowManagerModal .modal-content {
+    max-width: 70vw; /* Largura aumentada */
+    max-height: 90vh; /* Altura aumentada */
+    width: 100%;
+    height: auto;
+}
+.flow-list, .technician-list, .user-list {
+    margin-top: 1rem;
+}
+.flow-item, .technician-item, .user-item-manage {
+    background: #f0f4f8;
+    border: 1px solid #d9e2ec;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flow-item-details, .technician-item-details, .user-item-details {
+    flex-grow: 1;
+}
+.flow-item-name, .technician-item-name, .user-item-name {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+.flow-item-processes, .technician-item-role, .user-item-role {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.flow-item-actions, .technician-item-actions, .user-item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.flow-item-actions button, .technician-item-actions button, .user-item-actions button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+.process-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.process-input-group input {
+    flex-grow: 1;
+}
+.process-list-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    max-height: 250px; /* Altura aumentada */
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+.process-list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.process-list-container .process-group {
+    background-color: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+}
+.process-list-container .process-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #d1d5db;
+}
+.process-list-container .process-group-header .group-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.process-list-container .process-group-header .group-actions button {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+.process-list-container .process-group-header .group-actions button:hover {
+    color: #ef4444;
+}
+.process-list-container .process-group ul {
+    padding-left: 1rem;
+}
+.process-list-container .process-group li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    border-bottom: 1px dotted #d1d5db;
+    font-size: 0.9rem;
+}
+.process-list-container .process-group li:last-child {
+    border-bottom: none;
+}
+.process-list-container li span {
+    color: #374151;
+}
+.process-list-container li button {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+.process-list-container li button:hover {
+    text-decoration: underline;
+}
+.flow-importer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+}
+.flow-importer textarea {
+    min-height: 200px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    background-color: #f9fafb;
+}
+/* Seção de Anexos no modal de projeto */
+.attachments-section {
+    margin-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+}
+.attachment-file-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+}
+.attachment-file-group label {
+    flex-shrink: 0;
+    width: 150px; /* Largura fixa para rótulos */
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #374151;
+}
+.attachment-file-group .file-name-display {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    background-color: #f9fafb;
+    color: #4b5563;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 100px; /* Garante que não encolha demais */
+}
+.attachment-file-group input[type="file"] {
+    display: none; /* Oculta o input de arquivo padrão */
+}
+.attachment-file-group .btn-attach, .attachment-file-group .btn-clear {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+/* Estilos para o Sistema de Pendências e Anotações (tipo Trello) */
+.board-container {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    overflow-x: auto;
+    min-height: 400px;
+    flex-grow: 1; /* Permite que o board preencha o espaço disponível */
+}
+.board-list {
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    width: 300px;
+    min-width: 300px;
+    max-height: 100%; /* Ajusta para preencher a altura do modal-body */
+    overflow-y: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+}
+.board-list-header {
+    padding: 1rem;
+    background-color: #e5e7eb;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; /* Não permite que o cabeçalho encolha */
+}
+.board-list-title {
+    font-weight: 600;
+    color: #374151;
+}
+.board-list-content {
+    padding: 1rem;
+    flex-grow: 1; /* Permite que o conteúdo da lista cresça */
+    overflow-y: auto; /* Adiciona scroll ao conteúdo dos cartões */
+}
+.board-card {
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    cursor: grab; /* Cursor para indicar arrastável */
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.board-card:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+/* Feedback visual para drag and drop */
+.board-card.dragging {
+    opacity: 0.5;
+    border: 2px dashed #2563eb;
+}
+.board-list-content.drag-over {
+    background-color: #dbeafe; /* Fundo azul claro para o alvo de drop */
+    border: 2px dashed #2563eb;
+}
+.board-card-title {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.board-card-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+}
+.board-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+}
+.board-add-card {
+    padding: 0.75rem;
+    text-align: center;
+    background-color: #f9fafb;
+    border-radius: 0.25rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.2s;
+    flex-shrink: 0; /* Não permite que o botão encolha */
+}
+.board-add-card:hover {
+    background-color: #e5e7eb;
+}
+.board-add-list {
+    padding: 1rem;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    width: 300px;
+    min-width: 300px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6b7280;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    height: fit-content;
+    align-self: flex-start; /* Alinha no topo para não esticar */
+}
+.board-add-list:hover {
+    background-color: #e5e7eb;
+}
+.board-form {
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+.board-form-group {
+    margin-bottom: 0.75rem;
+}
+.board-form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: #374151;
+}
+.board-form-input, .board-form-textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+.board-form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+.board-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+.board-checkbox {
+    margin-right: 0.5rem;
+}
+.board-checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+.board-card-progress {
+    height: 4px;
+    background-color: #e5e7eb;
+    border-radius: 2px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+.board-card-progress-fill {
+    height: 100%;
+    background-color: #10b981;
+    transition: width 0.3s ease;
+}
+/* Estilos para o modal de detalhes de cartão */
+.card-detail-modal .modal-content {
+    max-width: 600px;
+}
+.card-detail-checklist {
+    margin-top: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+.card-detail-checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+.card-detail-checklist-title {
+    font-weight: 500;
+    color: #374151;
+}
+.card-detail-checklist-progress {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.card-detail-checklist-items {
+    margin-top: 0.5rem;
+}
+.card-detail-checklist-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+.card-detail-checklist-item:hover {
+    background-color: #f9fafb;
+}
+.card-detail-checklist-item-checkbox {
+    margin-right: 0.75rem;
+    margin-top: 0.25rem;
+}
+.card-detail-checklist-item-content {
+    flex-grow: 1;
+}
+.card-detail-checklist-item-text {
+    color: #374151;
+}
+.card-detail-checklist-item-description {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    padding-left: 0.5rem;
+    border-left: 2px solid #e5e7eb;
+}
+.card-detail-checklist-item-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+.card-detail-add-item {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+.card-detail-add-item-input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+.card-completed {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+/* Estilos para a busca geral */
+#generalSearchModal .modal-content {
+    max-width: 700px;
+}
+#searchResultsList {
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.search-result-item {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.search-result-item:hover {
+    background-color: #eef2ff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.search-result-item-title {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+.search-result-item-context {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+.search-result-item-description {
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+/* Modal de Projeto (Novo/Editar) - Tamanho Padrão */
+#projectModal .modal-content {
+    max-width: 90rem; /* Mesmo tamanho das outras modals */
+    max-height: 90vh;
+    width: 100%;
+    height: auto;
+}
+#projectModal .modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+#projectModal .modal-body .section-header {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+#projectModal .flow-selection-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+#projectModal .flow-selection-group .form-group {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+/* Modal de Edição de Fluxo do Projeto - Tamanho Padrão */
+#editProjectFlowModal .modal-content {
+    max-width: 90rem; /* Mesmo tamanho das outras modals */
+    max-height: 90vh;
+    width: 100%;
+    height: auto;
+}
+#editProjectFlowModal .modal-body {
+    padding: 1.5rem;
+}
+#editProjectFlowModal .flow-process-list {
+    margin-top: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+#editProjectFlowModal .flow-process-group {
+    background-color: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+}
+#editProjectFlowModal .flow-process-group-header {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #d1d5db;
+}
+#editProjectFlowModal .flow-process-group-header input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+#editProjectFlowModal .flow-process-group ul {
+    list-style: none;
+    padding-left: 1.5rem; /* Recua os processos */
+    margin-top: 0.5rem;
+}
+#editProjectFlowModal .flow-process-group li {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #374151;
+}
+#editProjectFlowModal .flow-process-group li input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+#editProjectFlowModal .flow-process-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+/* Estilos para o dropdown de autocompletar cliente */
+.client-dropdown {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 10;
+    margin-top: 0.25rem; /* Espaço entre o input e o dropdown */
+}
+.client-option {
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.client-option:hover {
+    background-color: #f3f4f6;
+}

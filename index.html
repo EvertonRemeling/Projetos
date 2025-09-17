@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial de Atendimentos</title>
+    <!-- Inclui Font Awesome para os ícones (se ainda estiver usando) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- ESSA É A LINHA QUE ESTÁ FALTANDO E É CRÍTICA PARA A FORMATAÇÃO -->
+    <link rel="stylesheet" href="home-style.css"> 
+</head>
+<body>
+    <div class="container">
+        <div class="atendimento-list-container" id="attendancesListContainer">
+            <!-- Os atendimentos serão carregados aqui pelo JavaScript -->
+            <p id="noAttendancesMessage" class="empty-state-home">Nenhum atendimento registrado ainda.</p>
+        </div>
+
+        <div class="footer-buttons">
+            <button id="iniciarAtendimentoBtn" class="button primary">Iniciar Atendimento</button>
+            <button id="sairBtn" class="button secondary">Sair</button>
+        </div>
+    </div>
+
+    <script src="home-script.js"></script>
+</body>
+</html>

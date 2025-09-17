@@ -1,0 +1,451 @@
+/* Reset Básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', 'Open Sans', 'Roboto', sans-serif;
+    background-color: #f0f2f5; /* Fundo ainda mais suave */
+    color: #333;
+    line-height: 1.5; /* Reduz line-height */
+    padding: 10px; /* Reduz padding do body */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-size: 15px; /* Base font size slightly smaller */
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 10px; /* Borda levemente menor */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06); /* Sombra mais sutil */
+    padding: 20px 25px; /* Reduz padding do container */
+    max-width: 98%; /* Ocupa quase 100% da largura em telas grandes */
+    width: 100%;
+    margin-top: 10px; /* Espaço do topo */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px; /* Reduz margem */
+    padding-bottom: 10px; /* Reduz padding */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+header h1 {
+    font-size: 1.8em; /* Ajuste para caber melhor */
+    color: #1a4d8c;
+    font-weight: 700;
+    letter-spacing: -0.5px; /* Para parecer mais compacto */
+}
+
+/* Seções de Formulário */
+.card {
+    background-color: #fbfcfe; /* Fundo quase branco */
+    border: 1px solid #e7edf2;
+    border-radius: 8px;
+    padding: 18px; /* Reduz padding do card */
+    margin-bottom: 12px; /* Reduz margem inferior entre cards */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03); /* Sombra ainda mais sutil */
+}
+
+.card h2 {
+    font-size: 1.25em; /* Reduz fonte */
+    color: #1a4d8c;
+    margin-bottom: 12px; /* Reduz margem */
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Espaçamento menor */
+    font-weight: 600;
+}
+
+.card h2 .icon {
+    color: #007bff;
+    font-size: 0.85em; /* Ícone um pouco menor */
+}
+
+/* Grupos de Inputs */
+.input-group {
+    margin-bottom: 8px; /* Reduz margem inferior para inputs */
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 4px; /* Reduz margem */
+    font-weight: 500; /* Peso da fonte um pouco menor */
+    color: #555;
+    font-size: 0.85em; /* Reduz fonte */
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group input[type="date"],
+.input-group input[type="time"],
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 8px 10px; /* Reduz padding para diminuir altura */
+    border: 1px solid #cdd4da; /* Borda um pouco mais clara */
+    border-radius: 5px; /* Borda levemente menor */
+    font-size: 0.9em; /* Reduz fonte */
+    color: #495057;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    height: 38px; /* Altura fixa para inputs para consistência */
+}
+
+.input-group select {
+    appearance: none; /* Remove seta padrão em alguns browsers */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236c757d'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 30px; /* Espaço para a seta customizada */
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #0069d9; /* Azul um pouco mais escuro */
+    box-shadow: 0 0 0 0.15rem rgba(0, 105, 217, 0.2); /* Sombra de foco mais discreta */
+    outline: none;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 50px; /* Altura mínima menor */
+    height: auto; /* Permite que cresça, mas mantém min-height */
+}
+
+/* --- Layouts de Grid e Flexbox Customizados para Máxima Compactação --- */
+
+/* Usado para Código/Nome e para Responsável */
+.form-row-tight {
+    display: flex;
+    gap: 15px; /* Reduz gap */
+    margin-bottom: 10px; /* Reduz margem */
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+}
+
+.form-row-tight .input-group {
+    flex: 1;
+    min-width: 120px; /* Min-width menor */
+    margin-bottom: 0;
+}
+
+.form-row-tight .input-group.input-code {
+    flex: 0 0 100px; /* Código tem largura fixa em desktop */
+    min-width: 80px;
+}
+.form-row-tight .input-group.input-name {
+    flex: 2; /* Nome ocupa mais espaço */
+}
+
+.form-row-tight .input-group.input-responsible-search,
+.form-row-tight .input-group.input-responsible-select {
+    flex: 1; /* Dividem espaço igualmente */
+}
+
+
+/* Para a linha de busca de responsável (input + botão) */
+.search-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input > input {
+    padding-right: 35px; /* Espaço para o ícone */
+}
+
+.search-button {
+    position: absolute;
+    right: 1px;
+    top: 28px; /* Ajuste de posição */
+    height: 36px; /* Ajusta altura do botão ao input */
+    width: 38px;
+    border: none;
+    background-color: transparent;
+    color: #007bff;
+    font-size: 0.9em; /* Ícone menor */
+    cursor: pointer;
+    border-left: 1px solid #cdd4da;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-button:hover {
+    color: #0056b3;
+}
+
+
+/* Detalhes da Visita e Deslocamento (time-events-grid) */
+.time-events-grid {
+    display: grid;
+    /* 2 colunas para telas médias, aproveita bem a largura */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px 20px; /* Reduz gap */
+    margin-bottom: 15px;
+}
+
+.event-time-block {
+    display: flex;
+    flex-direction: column; /* Label em cima, inputs abaixo */
+    gap: 6px; /* Espaçamento menor */
+    border: 1px solid #eef3f7; /* Borda mais clara */
+    padding: 10px; /* Padding menor */
+    border-radius: 5px;
+    background-color: #fcfdfe; /* Fundo mais claro */
+}
+
+.event-time-block label {
+    font-weight: 600;
+    color: #444;
+    font-size: 0.88em;
+    margin-bottom: 0;
+}
+
+.date-time-inputs {
+    display: flex;
+    gap: 8px; /* Reduz gap entre data e hora */
+}
+
+.date-time-inputs input[type="date"],
+.date-time-inputs input[type="time"] {
+    flex: 1;
+    padding: 8px; /* Padding menor */
+    height: 36px; /* Altura fixa */
+    font-size: 0.88em; /* Reduz fonte */
+}
+
+/* Despesas */
+.expenses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* Mais colunas em desktop */
+    gap: 12px; /* Reduz gap */
+    margin-bottom: 0;
+}
+.expenses-grid .input-group {
+    margin-bottom: 0;
+}
+
+/* Atividades Realizadas */
+.activity-inputs-grid {
+    display: grid;
+    /* Em desktop: Module | Contact | Description */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.activity-inputs-grid .input-group.input-description {
+    grid-column: 1 / -1; /* Ocupa toda a largura em mobile */
+}
+
+@media (min-width: 769px) {
+    .activity-inputs-grid {
+        grid-template-columns: 1fr 1fr 2fr; /* Module | Contact | Description */
+    }
+}
+
+.button-add-activity {
+    margin-top: 5px; /* Margem extra para o botão de adicionar */
+}
+
+
+/* Botões */
+.button {
+    padding: 9px 18px; /* Reduz padding */
+    border-radius: 5px;
+    font-size: 0.9em; /* Reduz fonte */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; /* Reduz gap */
+    justify-content: center;
+    text-decoration: none;
+    height: 38px; /* Altura fixa para botões */
+}
+
+.button-primary {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.button-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: 1px solid #6c757d;
+}
+
+.button-secondary:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-tertiary {
+    background-color: transparent;
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.button-tertiary:hover {
+    background-color: #e9ecef;
+    color: #5a6268;
+    border-color: #5a6268;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px; /* Reduz margem */
+}
+
+/* Lista de Atividades */
+.activity-list {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #e0e0e0;
+}
+
+.activity-list h3 {
+    font-size: 1.05em; /* Reduz fonte */
+    color: #1a4d8c;
+    margin-bottom: 10px;
+}
+
+#activitiesIncluded {
+    list-style: none;
+    padding: 0;
+}
+
+#activitiesIncluded li {
+    background-color: #f7f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    padding: 10px 12px; /* Reduz padding */
+    margin-bottom: 6px; /* Reduz margem */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+#activitiesIncluded li .activity-details {
+    flex-grow: 1;
+}
+
+#activitiesIncluded li p {
+    margin: 0 0 2px 0; /* Reduz margem */
+    font-size: 0.8em; /* Reduz fonte */
+    color: #495057;
+}
+
+#activitiesIncluded li p strong {
+    color: #333;
+}
+
+#activitiesIncluded li .activity-actions {
+    display: flex;
+    gap: 4px; /* Reduz gap */
+    flex-shrink: 0;
+}
+
+#activitiesIncluded li .activity-actions button {
+    font-size: 0.9em; /* Reduz fonte */
+    padding: 2px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 12px; /* Reduz padding */
+    border: 1px dashed #dee2e6;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 0.85em; /* Reduz fonte */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Base font size para mobile */
+    }
+    .container {
+        padding: 15px 20px;
+    }
+    header h1 {
+        font-size: 1.5em;
+    }
+    .card h2 {
+        font-size: 1.15em;
+    }
+
+    .form-row-tight,
+    .time-events-grid,
+    .expenses-grid,
+    .activity-inputs-grid {
+        grid-template-columns: 1fr; /* Força 1 coluna em mobile */
+        gap: 10px; /* Reduz gap */
+    }
+
+    .form-row-tight .input-group.input-code,
+    .form-row-tight .input-group.input-name,
+    .form-row-tight .input-group.input-responsible-search,
+    .form-row-tight .input-group.input-responsible-select {
+        flex: auto; /* Remove flex fixo em mobile */
+        min-width: unset;
+    }
+
+    .search-button {
+        top: 29px; /* Ajuste para mobile */
+        height: 36px;
+    }
+    
+    .event-time-block {
+        padding: 8px; /* Padding menor em mobile */
+    }
+    .date-time-inputs {
+        flex-direction: column; /* Stack data e hora em mobile */
+        gap: 5px;
+    }
+    .date-time-inputs input[type="date"],
+    .date-time-inputs input[type="time"] {
+        height: auto; /* Deixa altura automática em mobile */
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .button {
+        width: 100%;
+    }
+}
+
+    const addActivityBtn = document.getElementById('addActivityBtn');
+    const activitiesIncluded = document.getElementById('activitiesIncluded');
+    const noActivitiesMessage = document.getElementById('noActivitiesMessage');
+
+    console.log('Botão Incluir Atividade:', addActivityBtn); // Linha adicionada
+    console.log('Lista de Atividades (UL):', activitiesIncluded); // Linha adicionada

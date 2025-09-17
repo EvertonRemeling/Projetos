@@ -1,0 +1,432 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f0f2f5; /* Cor de fundo clara para o corpo da página */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Garante que o container fique centralizado verticalmente */
+    padding: 20px; /* Espaçamento para telas menores */
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px; /* Largura máxima para o container */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.atendimento-list-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    /* Adicione um overflow-y e altura máxima se a lista for muito longa */
+    /* max-height: 500px; */
+    /* overflow-y: auto; */
+}
+
+/* Estilo para cada item na lista */
+.atendimento-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee; /* Linha divisória entre os itens */
+    color: #333;
+}
+
+.atendimento-item:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+.actions {
+    flex-shrink: 0; /* Evita que os ícones encolham */
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.icon-button {
+    color: #007bff; /* Cor azul para os ícones */
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+.icon-button:hover {
+    color: #0056b3; /* Escurece no hover */
+}
+
+.arrow-icon {
+    color: #007bff;
+    margin-right: 8px;
+    font-size: 1em;
+}
+
+.id-and-status {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    min-width: 120px; /* Ajuda a alinhar as colunas */
+}
+
+.id {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.status {
+    color: #666;
+}
+
+.details {
+    flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
+    display: flex;
+    justify-content: space-between; /* Empurra o intervalo de tempo para a direita */
+    align-items: center;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
+}
+
+.name {
+    margin-right: 20px;
+    flex-basis: 25%; /* Ajusta a base de largura */
+    min-width: 150px; /* Garante largura mínima para o nome */
+}
+
+.displacement {
+    margin-right: 20px;
+    flex-basis: 15%;
+    min-width: 100px;
+}
+
+.time-range {
+    white-space: nowrap; /* Impede quebra de linha para o intervalo de tempo */
+    text-align: right;
+    flex-basis: 35%;
+    min-width: 250px;
+}
+
+/* Botões de Rodapé */
+.footer-buttons {
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    margin-top: 20px;
+    gap: 10px; /* Espaçamento entre os botões */
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.button.primary {
+    background-color: #007bff; /* Azul padrão */
+    color: white;
+}
+
+.button.primary:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+}
+
+.button.secondary {
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.button.secondary:hover {
+    background-color: #e9f5ff; /* Fundo levemente azulado no hover */
+    border-color: #0056b3;
+    color: #0056b3;
+}
+
+/* Media Queries para responsividade básica */
+@media (max-width: 768px) {
+    .atendimento-item {
+        flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+        align-items: flex-start; /* Alinha no topo quando quebra */
+    }
+
+    .actions {
+        order: 1; /* Coloca as ações primeiro */
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .id-and-status {
+        order: 2;
+        margin-right: 10px;
+        min-width: unset;
+    }
+
+    .details {
+        order: 3;
+        flex-direction: column; /* Empilha os detalhes verticalmente */
+        align-items: flex-start;
+        margin-top: 5px;
+        width: 100%;
+    }
+
+    .name, .displacement, .time-range {
+        margin-right: 0;
+        margin-bottom: 5px;
+        flex-basis: 100%; /* Ocupa toda a largura disponível */
+        min-width: unset;
+        text-align: left;
+    }
+
+    .time-range {
+        margin-bottom: 0;
+    }
+
+    .footer-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ... seu CSS existente ... */
+
+.empty-state-home {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+    border: 1px dashed #dee2e6;
+    border-radius: 4px;
+    margin-top: 15px;
+    background-color: #f8f9fa;
+}
+
+/* ... seu CSS existente (body, .container, .atendimento-list-container, etc.) ... */
+
+/* Estilo para cada item na lista */
+.atendimento-item {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+    align-items: center;
+    padding: 12px 15px; /* Aumenta um pouco o padding */
+    border-bottom: 1px solid #eee; /* Linha divisória entre os itens */
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+
+.atendimento-item:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+.atendimento-item:hover {
+    background-color: #f9f9f9; /* Leve destaque ao passar o mouse */
+}
+
+/* Bloco de ações (lupa, lápis, lixeira) */
+.actions {
+    flex-basis: 70px; /* Largura fixa para os ícones */
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around; /* Distribui os ícones */
+    align-items: center;
+    margin-right: 15px;
+    padding-right: 15px; /* Espaçamento extra à direita */
+    border-right: 1px solid #eee; /* Linha vertical para separar */
+}
+
+.icon-button {
+    color: #007bff; /* Cor azul para os ícones */
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 5px; /* Área clicável maior */
+    border-radius: 3px;
+}
+
+.icon-button:hover {
+    color: #0056b3; /* Escurece no hover */
+    background-color: #e6f2ff; /* Fundo leve no hover */
+}
+
+/* Bloco ID e Status */
+.id-and-status {
+    flex-basis: 180px; /* Largura para ID e Status */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.arrow-icon {
+    color: #007bff;
+    margin-right: 8px;
+    font-size: 1em;
+}
+
+.id {
+    font-weight: bold;
+    margin-right: 8px; /* Espaçamento entre ID e Status */
+    white-space: nowrap; /* Impede quebra de linha do ID */
+}
+
+.status {
+    color: #666;
+    font-size: 0.9em;
+    white-space: nowrap; /* Impede quebra de linha do Status */
+}
+
+/* Bloco de Detalhes (Nome, Deslocamento, Período) */
+.details {
+    flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
+    display: flex;
+    flex-wrap: wrap; /* Permite que os detalhes quebrem a linha */
+    align-items: center;
+    justify-content: space-between; /* Distribui o espaço entre os elementos */
+    font-size: 0.9em;
+    min-width: 250px; /* Garante uma largura mínima para os detalhes */
+}
+
+.details > span {
+    padding: 3px 0; /* Pequeno padding vertical para cada span */
+    white-space: nowrap; /* Tenta manter em uma linha */
+    overflow: hidden; /* Esconde o excesso se não couber */
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for cortado */
+}
+
+.name {
+    font-weight: 500;
+    color: #444;
+    flex-basis: 35%; /* Base para o nome */
+    min-width: 150px; /* Largura mínima para o nome */
+}
+
+.displacement {
+    color: #777;
+    flex-basis: 15%; /* Base para deslocamento */
+    min-width: 100px;
+    text-align: center;
+}
+
+.time-range {
+    color: #777;
+    flex-basis: 45%; /* Base para período */
+    min-width: 250px; /* Largura mínima para o período */
+    text-align: right;
+}
+
+/* Ajustes para telas menores (Responsividade) */
+@media (max-width: 900px) {
+    .actions {
+        flex-basis: 100%; /* Ações ocupam a linha toda no topo */
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+        margin-bottom: 10px; /* Espaçamento abaixo das ações */
+        justify-content: flex-start; /* Alinha ícones à esquerda */
+        border-bottom: 1px dashed #eee; /* Linha de separação */
+        padding-bottom: 8px;
+    }
+    .id-and-status {
+        flex-basis: 100%; /* ID e Status ocupam a linha toda */
+        margin-bottom: 5px;
+    }
+    .details {
+        flex-direction: column; /* Empilha os detalhes verticalmente */
+        align-items: flex-start; /* Alinha à esquerda */
+        width: 100%;
+        min-width: unset;
+    }
+    .name, .displacement, .time-range {
+        flex-basis: 100%; /* Cada detalhe ocupa sua própria linha */
+        text-align: left; /* Alinha tudo à esquerda */
+        margin-right: 0;
+        min-width: unset;
+    }
+    .time-range {
+        white-space: normal; /* Permite quebrar a linha do período em mobile */
+    }
+}
+
+/* ... seu CSS existente ... */
+
+/* Ajustes para o bloco ID (removido status) */
+.id-and-status {
+    flex-basis: 120px; /* Largura reduzida, já que o status foi removido */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+/* Ajustes para o bloco de Detalhes (Nome, Chegada, Saída) */
+.details {
+    flex-grow: 1; /* Permite que os detalhes ocupem o espaço restante */
+    display: flex;
+    flex-direction: column; /* Empilha os detalhes verticalmente */
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    font-size: 0.95em;
+    min-width: 250px; /* Garante uma largura mínima */
+}
+
+.details .client-name-display {
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 5px; /* Espaço abaixo do nome do cliente */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.details .client-arrival-time,
+.details .client-departure-time {
+    color: #777;
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Remova ou ignore este bloco de CSS se ele existir, pois não teremos mais .name, .displacement, .time-range como antes */
+/*
+.name { ... }
+.displacement { ... }
+.time-range { ... }
+*/
+
+/* Ajustes para telas menores (Responsividade) */
+@media (max-width: 900px) {
+    .actions {
+        flex-basis: 100%;
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+        margin-bottom: 10px;
+        justify-content: flex-start;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 8px;
+    }
+    .id-and-status {
+        flex-basis: 100%; /* ID ocupa a linha toda */
+        margin-bottom: 5px;
+    }
+    .details {
+        flex-direction: column; /* Já é coluna, mas garante alinhamento */
+        align-items: flex-start;
+        width: 100%;
+        min-width: unset;
+    }
+    .details .client-name-display,
+    .details .client-arrival-time,
+    .details .client-departure-time {
+        white-space: normal; /* Permite quebra de linha em mobile para evitar cortes */
+    }
+}
