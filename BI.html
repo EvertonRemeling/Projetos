@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Consulta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        /* Estilo do botão Sair */
+        .exit-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .exit-button:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .exit-button:active {
+            transform: translateY(0);
+        }
+        
+        .exit-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        
+        /* Estilo das abas */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .tab-button {
+            background-color: #e5e7eb;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 15px 20px;
+            flex-grow: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4b5563;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button:hover {
+            background-color: #d1d5db;
+        }
+        
+        .tab-button.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        /* Conteúdo das abas */
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-height: 650px;
+            overflow: auto;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Conteúdo específico para calendário */
+        #calendario .main-container {
+            padding: 0 !important;
+            height: auto !important;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .tab-button {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .exit-button {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       
+
+        <div class="">     
+            
+            <!-- Botão Sair -->
+            <a href="index_Projeto.html" class="exit-button">
+                <svg class="exit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" fill="currentColor"></path>
+                </svg>
+                Sair
+            </a>
+
+               
+        
+        </div>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'horas')">Controle de Horas</button>
+            <button class="tab-button" onclick="openTab(event, 'resumo')">Tabela de Resumo</button>
+            <button class="tab-button" onclick="openTab(event, 'calendario')">Calendário Dinâmico</button>
+        </div>
+        
+        <!-- Conteúdo da Aba 1: Controle de Horas -->
+        <div id="horas" class="tab-content active">
+            <div style='font-family: Segoe UI, Arial, sans-serif; width: 100%; height: 100%; display: flex; flex-direction: column; background-color: transparent; padding: 8px; box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; min-height: 643px;'>
+                <div style='background-color: #ffffff; border-radius: 20px; padding: 16px; height: 100%; display: flex; flex-direction: column; border: 1px solid #e5e7eb; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);'>
+                    <!-- Título Principal -->
+                    <h1 style='text-align: center; color: #1f2937; font-size: clamp(22px, 3vw, 28px); font-weight: 700; margin: 0px 0px 20px 0px; letter-spacing: 0.8px; position: relative; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                      CONTROLE DE HORAS
+                      <div style='position: absolute; bottom: -6px; left: 50%; margin-left: -25px; width: 50px; height: 4px; background-color: #667eea; border-radius: 2px;'></div>
+                    </h1>
+                    <!-- Área Principal do Progresso -->
+                    <div style='margin-bottom: 20px; position: relative; padding-top: 80px; max-width: 100%;'>
+                      <div style='position: relative; height: 40px; background-color: #f1f5f9; border-radius: 20px; overflow: visible; margin-bottom: 12px; border: 1px solid #d1d5db; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);'>
+                        <div style='position: absolute; left: 0px; top: 0px; width: 25%; height: 40px; background-color: #10b981; border-radius: 20px 0px 0px 20px;'></div>
+                        <div style='position: absolute; left: 25%; top: 0px; width: 25%; height: 40px; background-color: #fbbf24;'></div>
+                        <div style='position: absolute; left: 50%; top: 0px; width: 25%; height: 40px; background-color: #fb923c;'></div>
+                        <div style='position: absolute; left: 75%; top: 0px; width: 25%; height: 40px; background-color: #ef4444; border-radius: 0px 20px 20px 0px;'></div>
+                        
+                        <!-- Marcador de Progresso (exemplo com 60%) -->
+                        <div style='position: absolute; top: 20px; left: 60%; margin-left: -12px; z-index: 10;'>
+                          <div style='position: absolute; top: -70px; background-color: #1f2937; color: #ffffff; padding: 8px 12px; border-radius: 8px; font-size: clamp(12px, 1.5vw, 14px); font-weight: 700; white-space: nowrap; text-align: center; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); min-width: 50px; left: 50%; transform: translateX(-50%); max-width: 250px;'>
+                            60.0%
+                            <div style='position: absolute; top: 100%; left: 50%; margin-left: -6px; width: 0px; height: 0px; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #1f2937;'></div>
+                          </div>
+                          <div style='width: 20px; height: 20px; background-color: #ffffff; border: 4px solid #1f2937; border-radius: 50%; margin-left: -10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);'></div>
+                        </div>
+                      </div>
+                      <!-- Escalas da Barra -->
+                      <div style='display: flex; justify-content: space-between; padding: 0px 8px; font-size: clamp(11px, 1.2vw, 13px); color: #6b7280; font-weight: 600; width: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                        <span>0%</span>
+                        <span>25%</span>
+                        <span>50%</span>
+                        <span>75%</span>
+                        <span>100%</span>
+                      </div>
+                    </div>
+                    
+                    <!-- Container Principal dos Dados -->
+                    <div style='flex: 1; display: flex; flex-direction: column; gap: 16px;'>
+                      <!-- Primeira Linha de Cards -->
+                      <div style='display: flex; gap: 8px; flex-wrap: wrap;'>
+                        <!-- Previstas -->
+                        <div style='flex: 1; min-width: 200px; background-color: #f8fafc; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);'>
+                          <div style='height: 3px; background-color: #10b981; margin: -12px -12px 8px -12px; border-radius: 12px 12px 0px 0px;'></div>
+                          <div style='font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #6b7280; margin-bottom: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                            100<span style='font-size: clamp(12px, 1.5vw, 16px); color: #9ca3af; font-weight: 600; -webkit-font-smoothing: antialiased;'>h</span>
+                          </div>
+                          <div style='font-size: clamp(10px, 1.2vw, 12px); color: #6b7280; font-weight: 700; letter-spacing: 0.5px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>PREVISTAS</div>
+                        </div>
+                        <!-- Realizadas -->
+                        <div style='flex: 1; min-width: 200px; background-color: #f8fafc; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);'>
+                          <div style='height: 3px; background-color: #ef4444; margin: -12px -12px 8px -12px; border-radius: 12px 12px 0px 0px;'></div>
+                          <div style='font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #ef4444; margin-bottom: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                            60<span style='font-size: clamp(12px, 1.5vw, 16px); color: #ef4444; font-weight: 600; -webkit-font-smoothing: antialiased;'>h</span>
+                          </div>
+                          <div style='font-size: clamp(10px, 1.2vw, 12px); color: #6b7280; font-weight: 700; letter-spacing: 0.5px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>REALIZADAS</div>
+                        </div>
+                        <!-- Saldo -->
+                        <div style='flex: 1; min-width: 200px; background-color: #f8fafc; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);'>
+                          <div style='height: 3px; background-color: #10b981; margin: -12px -12px 8px -12px; border-radius: 12px 12px 0px 0px;'></div>
+                          <div style='font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #10b981; margin-bottom: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                            +40h
+                          </div>
+                          <div style='font-size: clamp(10px, 1.2vw, 12px); color: #6b7280; font-weight: 700; letter-spacing: 0.5px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>SALDO</div>
+                        </div>
+                      </div>
+                      
+                      <!-- Segunda Linha de Cards -->
+                      <div style='display: flex; gap: 8px; flex-wrap: wrap;'>
+                        <!-- Cobradas -->
+                        <div style='flex: 1; min-width: 280px; background-color: #f8fafc; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);'>
+                          <div style='height: 3px; background-color: #3b82f6; margin: -12px -12px 8px -12px; border-radius: 12px 12px 0px 0px;'></div>
+                          <div style='font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #3b82f6; margin-bottom: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                            50<span style='font-size: clamp(12px, 1.5vw, 16px); color: #3b82f6; font-weight: 600; -webkit-font-smoothing: antialiased;'>h</span>
+                          </div>
+                          <div style='font-size: clamp(10px, 1.2vw, 12px); color: #6b7280; font-weight: 700; letter-spacing: 0.5px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>COBRADAS</div>
+                        </div>
+                        <!-- Bonificadas -->
+                        <div style='flex: 1; min-width: 280px; background-color: #f8fafc; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);'>
+                          <div style='height: 3px; background-color: #8b5cf6; margin: -12px -12px 8px -12px; border-radius: 12px 12px 0px 0px;'></div>
+                          <div style='font-size: clamp(24px, 4vw, 32px); font-weight: 800; color: #8b5cf6; margin-bottom: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                            10<span style='font-size: clamp(12px, 1.5vw, 16px); color: #8b5cf6; font-weight: 600; -webkit-font-smoothing: antialiased;'>h</span>
+                          </div>
+                          <div style='font-size: clamp(10px, 1.2vw, 12px); color: #6b7280; font-weight: 700; letter-spacing: 0.5px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>BONIFICADAS</div>
+                        </div>
+                      </div>
+                      
+                      <!-- Status -->
+                      <div style='text-align: center; padding: 14px; background-color: #f8fafc; border-radius: 12px; margin-bottom: 12px; border: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);'>
+                        <div style='display: inline-flex; align-items: center; gap: 8px; font-size: clamp(14px, 1.8vw, 18px); font-weight: 700; color: #374151; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;'>
+                          <span style='width: 10px; height: 10px; background-color: #fb923c; border-radius: 50%; display: inline-block;'></span>
+                          60.0% CONCLUÍDO
+                        </div>
+                      </div>
+                      
+                      <!-- Legenda -->
+                      <div style='display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 6px; font-size: clamp(9px, 1vw, 11px); color: #6b7280; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; margin-top: auto;'>
+                        <div style='display: flex; align-items: center; gap: 4px; padding: 4px 8px; background-color: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;'>
+                          <div style='width: 10px; height: 10px; background-color: #10b981; border-radius: 2px;'></div>
+                          <span style='font-weight: 600; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>0-25%</span>
+                        </div>
+                        <div style='display: flex; align-items: center; gap: 4px; padding: 4px 8px; background-color: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;'>
+                          <div style='width: 10px; height: 10px; background-color: #fbbf24; border-radius: 2px;'></div>
+                          <span style='font-weight: 600; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>25-50%</span>
+                        </div>
+                        <div style='display: flex; align-items: center; gap: 4px; padding: 4px 8px; background-color: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;'>
+                          <div style='width: 10px; height: 10px; background-color: #fb923c; border-radius: 2px;'></div>
+                          <span style='font-weight: 600; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>50-75%</span>
+                        </div>
+                        <div style='display: flex; align-items: center; gap: 4px; padding: 4px 8px; background-color: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;'>
+                          <div style='width: 10px; height: 10px; background-color: #ef4444; border-radius: 2px;'></div>
+                          <span style='font-weight: 600; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>75-100%</span>
+                        </div>
+                        <div style='display: flex; align-items: center; gap: 4px; padding: 4px 8px; background-color: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;'>
+                          <div style='width: 10px; height: 10px; background-color: #1f2937; border-radius: 2px;'></div>
+                          <span style='font-weight: 600; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>excedente</span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+        <!-- Conteúdo da Aba 2: Tabela de Resumo -->
+        <div id="resumo" class="tab-content">
+            <!-- Exemplo de uma entrada na tabela de resumo -->
+            <style>
+                /* Otimizações para publicação web - Anti-aliasing e fontes nítidas */
+                * {
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    text-rendering: optimizeLegibility;
+                    image-rendering: -webkit-optimize-contrast;
+                    image-rendering: crisp-edges;
+                }
+                .descricao-link {
+                    color: #0078d4;
+                    cursor: pointer;
+                    text-decoration: underline;
+                    font-size: 18px;
+                    font-weight: 500;
+                    line-height: 1.5;
+                }
+                .descricao-link:hover {
+                    color: #106ebe;
+                }
+                .modal-overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.5);
+                    z-index: 1000;
+                }
+                .modal-content {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: white;
+                    padding: 25px;
+                    border-radius: 8px;
+                    min-width: 450px;
+                    max-width: 90%;
+                    min-height: 350px;
+                    max-height: 90%;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 18px;
+                    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+                    -webkit-font-smoothing: antialiased;
+                }
+                .modal-body {
+                    flex: 1;
+                    overflow-y: auto;
+                    font-size: 18px;
+                }
+                .modal-header {
+                    border-bottom: 2px solid #0078d4;
+                    padding-bottom: 20px;
+                    margin-bottom: 25px;
+                }
+                .modal-close {
+                    float: right;
+                    font-size: 28px;
+                    cursor: pointer;
+                    color: #666;
+                    font-weight: bold;
+                }
+                .modal-close:hover {
+                    color: #000;
+                }
+                .info-row {
+                    margin-bottom: 15px;
+                    font-size: 18px;
+                }
+                .info-label {
+                    font-weight: 600;
+                    color: #323130;
+                    font-size: 18px;
+                }
+                .descricao-completa {
+                    background-color: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 6px;
+                    border-left: 5px solid #0078d4;
+                    margin-top: 20px;
+                    word-wrap: break-word;
+                    white-space: pre-wrap;
+                    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                    line-height: 1.6;
+                    font-size: 17px;
+                    color: #2c2c2c;
+                }
+            </style>
+            
+            <!-- Exemplo de item de resumo -->
+            <div style='border-bottom: 2px solid #e1e1e1; padding: 18px; background-color: #ffffff; font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; line-height: 1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>
+                <div style='display: flex; justify-content: space-between; gap: 15px; margin-bottom: 8px;'>
+                    <div style='font-size: 18px;'><strong style='font-weight: 600;'>Data:</strong> 18/09/2025</div>
+                    <div style='flex: 2; text-align: right; font-size: 18px;'><strong style='font-weight: 600;'>Sigla:</strong> ABC-123</div>
+                    <div style='flex: 2; text-align: right; font-size: 18px;'><strong style='font-weight: 600;'>Técnico:</strong> João Silva</div>
+                </div>
+                <div style='margin-top: 10px; margin-bottom: 10px;'>
+                    <strong style='font-weight: 600; font-size: 18px;'>Descrição:</strong>
+                    <span class='descricao-link' onclick='mostrarModal("desc_202509181435_ABC123_8.00")'>Implementação de módulo de exportação de relatórios para CSV... 🔽</span>
+                </div>
+                <div style='margin-top: 10px; display: flex; gap: 30px;'>
+                    <div style='font-size: 18px;'><strong style='font-weight: 600;'>Horas Visita/Atendimento:</strong> 8.00</div>
+                    <div style='font-size: 18px;'><strong style='font-weight: 600;'>Saldo:</strong> 32.00</div>
+                </div>
+            </div>
+            
+            <!-- Exemplo de outro item de resumo -->
+            <div style='border-bottom: 2px solid #e1e1e1; padding: 18px; background-color: #ffffff; font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; line-height: 1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;'>
+                <div style='display: flex; justify-content: space-between; gap: 15px; margin-bottom: 8px;'>
+                    <div style='font-size: 18px;'><strong style='font-weight: 600;'>Data:</strong> 17/09/2025</div>
+                    <div style='flex: 2; text-align: right; font-size: 18px;'><strong style='font-weight: 600;'>Sigla:</strong> ABC-124</div>
+                    <div style='flex: 2; text-align: right; font-size: 18px;'><strong style='font-weight: 600;'>Técnico:</strong> Maria Santos</div>
+                </div>
+                <div style='margin-top: 10px; margin-bottom: 10px;'>
+                    <strong style='font-weight: 600; font-size: 18px;'>Descrição:</strong>
+                    <span class='descricao-link' onclick='mostrarModal("desc_202509171015_ABC124_6.00")'>Configuração do ambiente de testes e validação da versão 2.3... 🔽</span>
+                </div>
+                <div style='margin-top: 10px; display: flex; gap: 30px;'>
+                    <div style='font-size: 18px;'><strong style='font-weight: 600;'>Horas Visita/Atendimento:</strong> 6.00</div>
+                    <div style='font-size: 18px;'><strong style='font-weight: 600;'>Saldo:</strong> 26.00</div>
+                </div>
+            </div>
+            
+            <!-- Modal para o primeiro exemplo -->
+            <div id='desc_202509181435_ABC123_8.00' class='modal-overlay' onclick='fecharModal("desc_202509181435_ABC123_8.00")'>
+                <div class='modal-content' onclick='event.stopPropagation()'>
+                    <div class='modal-header'>
+                        <span class='modal-close' onclick='fecharModal("desc_202509181435_ABC123_8.00")'>&times;</span>
+                        <h3 style='margin: 0; color: #323130; font-size: 22px; font-weight: 600;'>Descrição Detalhada</h3>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='info-row'>
+                            <span class='info-label'>Data:</span> 18/09/2025
+                        </div>
+                        <div class='info-row'>
+                            <span class='info-label'>Sigla:</span> ABC-123
+                        </div>
+                        <div class='info-row'>
+                            <span class='info-label'>Técnico:</span> João Silva
+                        </div>
+                        <div class='descricao-completa'>
+                            Implementação de módulo de exportação de relatórios para CSV e Excel. Foram implementadas as seguintes funcionalidades:
+                            
+                            1. Exportação para CSV com formatação condicional
+                            2. Exportação para Excel com formatação visual
+                            3. Opções de configuração de filtros para exportação
+                            4. Interface amigável para seleção de colunas
+                            
+                            Testes realizados em ambiente homologação com êxito.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal para o segundo exemplo -->
+            <div id='desc_202509171015_ABC124_6.00' class='modal-overlay' onclick='fecharModal("desc_202509171015_ABC124_6.00")'>
+                <div class='modal-content' onclick='event.stopPropagation()'>
+                    <div class='modal-header'>
+                        <span class='modal-close' onclick='fecharModal("desc_202509171015_ABC124_6.00")'>&times;</span>
+                        <h3 style='margin: 0; color: #323130; font-size: 22px; font-weight: 600;'>Descrição Detalhada</h3>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='info-row'>
+                            <span class='info-label'>Data:</span> 17/09/2025
+                        </div>
+                        <div class='info-row'>
+                            <span class='info-label'>Sigla:</span> ABC-124
+                        </div>
+                        <div class='info-row'>
+                            <span class='info-label'>Técnico:</span> Maria Santos
+                        </div>
+                        <div class='descricao-completa'>
+                            Configuração do ambiente de testes e validação da versão 2.3 do sistema. Atividades realizadas:
+                            
+                            - Setup do servidor de homologação
+                            - Configuração das variáveis de ambiente
+                            - Ajustes nos parâmetros de performance
+                            - Testes de integração com APIs externas
+                            - Validação de endpoints
+                            
+                            Ambiente pronto para receber a nova versão.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conteúdo da Aba 3: Calendário Dinâmico -->
+        <div id="calendario" class="tab-content">
+            <div class='main-container'>
+              <div class='calendar-container'>
+                <div class='month-year-header'>Setembro 2025</div>
+                <div class='calendar-grid'>
+                  <div class='calendar-header'>Dom</div>
+                  <div class='calendar-header'>Seg</div>
+                  <div class='calendar-header'>Ter</div>
+                  <div class='calendar-header'>Qua</div>
+                  <div class='calendar-header'>Qui</div>
+                  <div class='calendar-header'>Sex</div>
+                  <div class='calendar-header'>Sáb</div>
+                  
+                  <!-- Dias vazios início do mês (exemplo) -->
+                  <div class='calendar-day empty'></div>
+                  
+                  <!-- Dias do mês (exemplo) -->
+                  <div class='calendar-day'>
+                    <div class='day-number'>1</div>
+                    <div class='tecnicos-container'>
+                      <button class='day-agenda-button tecnico-button' style='background:#2196F3;' onclick='openModal("1-JoaoSilva")'>
+                        <div class='button-tecnico'>João Silva</div>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class='calendar-day'>
+                    <div class='day-number'>2</div>
+                    <div class='tecnicos-container'>
+                      <button class='day-agenda-button tecnico-button' style='background:#4CAF50;' onclick='openModal("2-MariaSantos")'>
+                        <div class='button-tecnico'>Maria Santos</div>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <!-- Continuar com mais dias... -->
+                  <div class='calendar-day'>
+                    <div class='day-number'>3</div>
+                  </div>
+                  <div class='calendar-day'>
+                    <div class='day-number'>4</div>
+                  </div>
+                  <div class='calendar-day'>
+                    <div class='day-number'>5</div>
+                  </div>
+                  <div class='calendar-day'>
+                    <div class='day-number'>6</div>
+                  </div>
+                  <div class='calendar-day'>
+                    <div class='day-number'>7</div>
+                  </div>
+                  <!-- E assim por diante para os outros dias... -->
+                  
+                </div>
+                <div class='stats-panel'>
+                  <div class='stats-description'><b>Resumo Geral das Agendas</b></div>
+                  <div class='stats-cards'>
+                    <div class='stat-card stat-solicitada'>
+                      <div class='count'>12</div>
+                      <div class='label'>Solicitadas</div>
+                      <div class='percentage'>15.0%</div>
+                    </div>
+                    <div class='stat-card stat-agendada'>
+                      <div class='count'>25</div>
+                      <div class='label'>Agendadas</div>
+                      <div class='percentage'>31.3%</div>
+                    </div>
+                    <div class='stat-card stat-realizada'>
+                      <div class='count'>35</div>
+                      <div class='label'>Realizadas</div>
+                      <div class='percentage'>43.8%</div>
+                    </div>
+                    <div class='stat-card stat-nao-realizada'>
+                      <div class='count'>3</div>
+                      <div class='label'>Não Realizadas</div>
+                      <div class='percentage'>3.8%</div>
+                    </div>
+                    <div class='stat-card stat-postergada'>
+                      <div class='count'>2</div>
+                      <div class='label'>Postergadas</div>
+                      <div class='percentage'>2.5%</div>
+                    </div>
+                    <div class='stat-card stat-cancelada'>
+                      <div class='count'>3</div>
+                      <div class='label'>Canceladas</div>
+                      <div class='percentage'>3.8%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Estilos específicos para o calendário -->
+            <style>
+                * {
+                    box-sizing: border-box;
+                }
+                .main-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    width: 100%;
+                    background: #f8fafc;
+                    padding: 15px;
+                    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+                    overflow: hidden;
+                }
+                .calendar-container {
+                    width: 100%;
+                    max-width: 100%;
+                    background: white;
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                    overflow: hidden;
+                }
+                .month-year-header {
+                    text-align: center;
+                    padding: 15px 20px;
+                    background: white;
+                    color: #374151;
+                    font-size: 32px;
+                    font-weight: bold;
+                    text-transform: capitalize;
+                    letter-spacing: 1.5px;
+                    border-bottom: 2px solid #e5e7eb;
+                    line-height: 1.2;
+                    flex-shrink: 0;
+                }
+                .calendar-grid {
+                    display: grid;
+                    grid-template-columns: repeat(7, 1fr);
+                    gap: 1px;
+                    background: #e5e7eb;
+                    flex: 1;
+                    margin: 0 25px;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    min-height: 350px;
+                }
+                .calendar-header {
+                    background: #374151;
+                    color: white;
+                    text-align: center;
+                    font-weight: 600;
+                    padding: 18px 10px;
+                    font-size: 18px;
+                    line-height: 1.2;
+                    flex-shrink: 0;
+                }
+                .calendar-day {
+                    background: white;
+                    padding: 8px;
+                    min-height: 100px;
+                    position: relative;
+                    overflow: visible;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-start;
+                    line-height: 1.3;
+                }
+                .calendar-day.empty {
+                    background: #f9fafb;
+                }
+                .day-number {
+                    font-weight: bold;
+                    color: #374151;
+                    margin-bottom: 8px;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    flex-shrink: 0;
+                    align-self: flex-start;
+                }
+                .tecnicos-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    width: 100%;
+                    align-items: center;
+                    flex: 1;
+                    min-height: 0;
+                }
+                .day-agenda-button {
+                    background: #2196F3;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    padding: 6px 8px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 24px;
+                    flex: 1;
+                }
+                .day-agenda-button:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+                }
+                .button-tecnico {
+                    font-size: 14px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 100%;
+                    line-height: 1.2;
+                }
+                .stats-panel {
+                    padding: 25px;
+                    border-top: 2px solid #e5e7eb;
+                    background: #f8fafc;
+                    flex-shrink: 0;
+                }
+                .stats-description {
+                    text-align: center;
+                    margin-bottom: 25px;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #374151;
+                    letter-spacing: 0.5px;
+                }
+                .stats-cards {
+                    display: grid;
+                    grid-template-columns: repeat(6, 1fr);
+                    gap: 20px;
+                }
+                .stat-card {
+                    background: white;
+                    padding: 24px 16px;
+                    border-radius: 10px;
+                    text-align: center;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: #374151;
+                }
+                .stat-card .count {
+                    font-size: 28px;
+                    font-weight: bold;
+                    line-height: 1.2;
+                }
+                .stat-card .label {
+                    margin-top: 6px;
+                    color: #555;
+                    font-size: 14px;
+                    line-height: 1.2;
+                }
+                .stat-card .percentage {
+                    margin-top: 8px;
+                    font-weight: bold;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    color: #111;
+                }
+                /* Cores específicas para os cards do rodapé */
+                .stat-solicitada {
+                    border-left: 8px solid #9C27B0;
+                    background: #f0f0ff;
+                }
+                .stat-agendada {
+                    border-left: 8px solid #2196F3;
+                    background: #e6f3ff;
+                }
+                .stat-realizada {
+                    border-left: 8px solid #4CAF50;
+                    background: #e6fff0;
+                }
+                .stat-nao-realizada {
+                    border-left: 8px solid #E91E63;
+                    background: #ffebee;
+                }
+                .stat-postergada {
+                    border-left: 8px solid #FF9800;
+                    background: #fff5e6;
+                }
+                .stat-cancelada {
+                    border-left: 8px solid #F44336;
+                    background: #fff0f0;
+                }
+                
+                /* Estilos para modais do calendário */
+                .modal {
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: auto;
+                    background-color: rgba(0,0,0,0.7);
+                    animation: fadeIn 0.3s ease;
+                    display: none;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                .modal-content {
+                    background-color: #ffffff;
+                    margin: 3% auto;
+                    padding: 0;
+                    border-radius: 12px;
+                    width: 85%;
+                    max-width: 900px;
+                    max-height: 85vh;
+                    overflow: hidden;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+                    animation: slideIn 0.3s ease;
+                }
+                @keyframes slideIn {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                .modal-title {
+                    background: #374151;
+                    color: white;
+                    padding: 20px 25px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-radius: 12px 12px 0 0;
+                }
+                .modal-title h3 {
+                    margin: 0;
+                    font-size: 20px;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                }
+                .close-button {
+                    color: white;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    line-height: 1;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    transition: background 0.2s ease;
+                }
+                .close-button:hover {
+                    background: rgba(255,255,255,0.2);
+                }
+                
+                /* Responsividade para o calendário */
+                @media (max-width: 992px) {
+                    .stats-cards {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+                
+                @media (max-width: 768px) {
+                    .stats-cards {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                    .calendar-day {
+                        min-height: 80px;
+                    }
+                }
+                
+                @media (max-width: 576px) {
+                    .stats-cards {
+                        grid-template-columns: 1fr;
+                    }
+                    .calendar-day {
+                        min-height: 60px;
+                    }
+                }
+            </style>
+            
+            <!-- Modais para o calendário (exemplos) -->
+            <div id='modal-1-JoaoSilva' class='modal'>
+                <div class='modal-content'>
+                    <div class='modal-title'>
+                        <h3>Agendas de João Silva - 1/9/2025</h3>
+                        <span class='close-button' onclick='closeModal("1-JoaoSilva")'>&times;</span>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='modal-agenda-item' style='background:#e6f3ff;'>
+                            <div class='modal-header'>
+                                <span class='modal-status-badge' style='background:#2196F3;'>Agendada</span>
+                                <div class='modal-datetime'>
+                                    <span class='modal-date'>📅 01/09/2025 - Manhã</span>
+                                    <span class='modal-time'>⏰ 09:00 às 12:00</span>
+                                </div>
+                            </div>
+                            <div class='modal-info'>
+                                <div class='modal-status'><strong>📋 Status:</strong> 3-Agendada</div>
+                                <div class='modal-observation'><strong>📝 Observação:</strong> Reunião de planejamento com o cliente para definir próximas etapas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id='modal-2-MariaSantos' class='modal'>
+                <div class='modal-content'>
+                    <div class='modal-title'>
+                        <h3>Agendas de Maria Santos - 2/9/2025</h3>
+                        <span class='close-button' onclick='closeModal("2-MariaSantos")'>&times;</span>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='modal-agenda-item' style='background:#e6fff0;'>
+                            <div class='modal-header'>
+                                <span class='modal-status-badge' style='background:#4CAF50;'>Realizada</span>
+                                <div class='modal-datetime'>
+                                    <span class='modal-date'>📅 02/09/2025 - Tarde</span>
+                                    <span class='modal-time'>⏰ 14:00 às 17:00</span>
+                                </div>
+                            </div>
+                            <div class='modal-info'>
+                                <div class='modal-status'><strong>📋 Status:</strong> 6-Realizada</div>
+                                <div class='modal-observation'><strong>📝 Observação:</strong> Implementação concluída com sucesso. Cliente aprovou todas as funcionalidades.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Função para alternar entre as abas
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            
+            // Oculta todo o conteúdo das abas
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+            
+            // Remove a classe "active" de todos os botões
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            // Mostra a aba atual e adiciona a classe "active" ao botão
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Funções para os modais da tabela de resumo
+        function mostrarModal(id) {
+            var modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'block';
+                setTimeout(function() {
+                    ajustarTamanhoModal(id);
+                }, 10);
+            }
+        }
+        
+        function ajustarTamanhoModal(id) {
+            var modal = document.getElementById(id);
+            var modalContent = modal.querySelector('.modal-content');
+            var modalBody = modal.querySelector('.modal-body');
+            modalContent.style.width = 'auto';
+            modalContent.style.height = 'auto';
+            var contentWidth = modalContent.scrollWidth;
+            var contentHeight = modalContent.scrollHeight;
+            var maxWidth = window.innerWidth * 0.9;
+            var maxHeight = window.innerHeight * 0.9;
+            var minWidth = 450;
+            var minHeight = 350;
+            var idealWidth = Math.min(Math.max(contentWidth + 50, minWidth), maxWidth);
+            var idealHeight = Math.min(Math.max(contentHeight + 50, minHeight), maxHeight);
+            modalContent.style.width = idealWidth + 'px';
+            modalContent.style.height = idealHeight + 'px';
+            if (contentHeight > idealHeight - 120) {
+                modalBody.style.overflowY = 'auto';
+                modalBody.style.maxHeight = (idealHeight - 120) + 'px';
+            } else {
+                modalBody.style.overflowY = 'visible';
+                modalBody.style.maxHeight = 'none';
+            }
+        }
+        
+        function fecharModal(id) {
+            var modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Funções para os modais do calendário
+        function openModal(modalId) {
+            var modal = document.getElementById('modal-' + modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeModal(modalId) {
+            var modal = document.getElementById('modal-' + modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Fechar todos os modais com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                var modals = document.querySelectorAll('.modal-overlay, .modal');
+                modals.forEach(function(modal) {
+                    modal.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Ajustar tamanho de modais ao redimensionar a janela
+        window.addEventListener('resize', function() {
+            var visibleModalOverlays = document.querySelectorAll('.modal-overlay[style*="display: block"]');
+            visibleModalOverlays.forEach(function(modal) {
+                ajustarTamanhoModal(modal.id);
+            });
+        });
+    </script>
+</body>
+</html>

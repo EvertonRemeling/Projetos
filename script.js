@@ -511,6 +511,12 @@ function loadProjects() {
 </button>
 
 
+ <button class="btn btn-sm btn-secondary" 
+        onclick="window.location.href='BI.html'" 
+        aria-label="Protocolo">
+  Acompanhamento de horas/Visítas
+</button>
+
 
                     <button class="btn btn-sm btn-secondary" onclick="openProjectViewModal(${project.id})" aria-label="Ver Detalhes">👁️ Ver</button>
                     ${(currentUser.role === 'admin' || currentUser.role === 'implantador') ? `
