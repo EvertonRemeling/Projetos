@@ -6,49 +6,161 @@
     <title>Registro de Novo Atendimento</title>
     <link rel="stylesheet" href="form-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos adicionais para acomodar as mudanças */
+        .section-client-info .form-row-tight {
+            display: flex;
+            gap: 15px; /* Espaço entre os campos */
+            margin-bottom: 10px;
+            flex-wrap: wrap; /* Permite que os itens quebrem linha se não houver espaço */
+        }
+        .section-client-info .form-row-tight .input-group {
+            flex: 1; /* Para que os campos ocupem o mesmo espaço */
+        }
+        /* Ajuste para o grid de atividades */
+        .activity-inputs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 2 colunas mais flexíveis */
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .activity-inputs-grid .input-group {
+            min-width: 0; /* Permite que os itens encolham */
+        }
+        .activity-inputs-grid .input-description {
+            grid-column: 1 / -1; /* Faz a descrição ocupar a largura total */
+        }
+        .activity-inputs-grid textarea {
+            min-height: 100px; /* Altura aumentada para a descrição */
+            resize: vertical; /* Permite redimensionar verticalmente */
+        }
+        /* Estilo para o campo de Protocolo */
+        .protocol-field {
+            text-align: right;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-right: 10px;
+        }
+        .protocol-field span {
+            color: #333;
+        }
+        /* Estilos para o campo de busca com lupa */
+        .search-input-with-button {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 5px; /* Ajusta o padding para o input e o botão */
+            background-color: #fff;
+            flex: 1; /* Para ocupar o espaço disponível */
+        }
+        .search-input-with-button input {
+            border: none; /* Remove a borda padrão do input */
+            flex-grow: 1; /* Permite que o input preencha o espaço */
+            padding: 8px 0; /* Ajusta o padding interno */
+            outline: none; /* Remove o outline ao focar */
+        }
+        .search-input-with-button .search-button {
+            background: none;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+        }
+        .search-input-with-button .search-button:hover {
+            color: #007bff;
+        }
+        /* Ajuste para o layout dos campos de cliente */
+        .section-client-info .input-group.input-code {
+            flex: 2; /* O campo de busca ocupa mais espaço */
+            min-width: 300px; /* Garante um tamanho mínimo */
+        }
+        .section-client-info .input-group.input-responsible-select {
+            flex: 1; /* O campo de responsável ocupa menos espaço */
+            min-width: 200px; /* Garante um tamanho mínimo */
+        }
+
+        /* ESTILO PARA O CAMPO DE CONTATOS COM CHECKBOXES, SIMULANDO UM SELECT */
+        .custom-multiselect-checkboxes {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-height: 150px; /* Altura máxima para ativar o scroll */
+            overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder */
+            padding: 5px;
+            background-color: #fff;
+            box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura */
+        }
+        .custom-multiselect-checkboxes label {
+            display: block; /* Cada label em sua própria linha */
+            padding: 5px 8px;
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+        .custom-multiselect-checkboxes label:hover {
+            background-color: #e2e6ea; /* Fundo ao passar o mouse */
+        }
+        .custom-multiselect-checkboxes input[type="checkbox"] {
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- O HEADER COM O H1 AGORA ESTÁ DENTRO DO FORMULÁRIO -->
         <form id="attendanceForm">
             <header>
                 <h1>Registro de Atendimento em Visita</h1>
             </header>
+            
+            <div class="protocol-field">
+                Protocolo nº: <span id="protocolNumber">119905</span>
+            </div>
 
-            <!-- SEÇÃO 1: INFORMAÇÕES DO CLIENTE (Ainda mais compacta) -->
             <section class="card section-client-info">
                 <h2><i class="fas fa-user-tag icon"></i> Informações do Cliente</h2>
                 <div class="form-row-tight">
                     <div class="input-group input-code">
-                        <label for="clientCode">Código</label>
-                        <input type="text" id="clientCode" name="clientCode" placeholder="C001" required>
-                    </div>
-                    <div class="input-group input-name">
-                        <label for="clientName">Nome do Cliente</label>
-                        <input type="text" id="clientName" name="clientName" placeholder="Nome completo" required>
-                    </div>
-                </div>
-                <div class="form-row-tight">
-                    <div class="input-group search-input input-responsible-search">
-                        <label for="clientResponsibleSearch">Buscar Responsável</label>
-                        <input type="text" id="clientResponsibleSearch" name="clientResponsibleSearch" placeholder="Nome do responsável" aria-label="Buscar responsável do cliente">
-                        <button type="button" class="search-button" title="Buscar Responsável"><i class="fas fa-search"></i></button>
+                        <label for="clientCodeSearch">Cliente (Código - Nome)</label>
+                        <div class="search-input-with-button">
+                            <input type="text" id="clientCodeSearch" name="clientCodeAndName" placeholder="Pesquisar por Código ou Nome" list="clientSuggestions" required>
+                            <datalist id="clientSuggestions">
+                                <option value="C001 - Alpha Soluções Ltda."></option>
+                                <option value="C002 - Beta Tech S.A."></option>
+                                <option value="C003 - Gama Serviços Digitais"></option>
+                                <option value="C004 - Delta Indústria"></option>
+                                <option value="C005 - Epsilon Comércio"></option>
+                                <option value="C006 - Ómega Consultoria"></option>
+                                <option value="C007 - Zeta Logística"></option>
+                                <option value="C008 - Iota Manufatura"></option>
+                                <option value="C009 - Kappa Distribuidora"></option>
+                                <option value="C010 - Lambda Serviços TI"></option>
+                            </datalist>
+                            <button type="button" class="search-button" title="Buscar Cliente"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
                     <div class="input-group input-responsible-select">
                         <label for="responsibleSelection">Responsável Selecionado</label>
                         <select id="responsibleSelection" name="responsibleSelection" required>
                             <option value="">Selecione um responsável</option>
+                            <option value="Joana Silva">Joana Silva</option>
+                            <option value="Pedro Oliveira">Pedro Oliveira</option>
+                            <option value="Ana Santos">Ana Santos</option>
+                            <option value="Carlos Pereira">Carlos Pereira</option>
+                            <option value="Mariana Costa">Mariana Costa</option>
+                            <option value="Rafael Almeida">Rafael Almeida</option>
                         </select>
                     </div>
                 </div>
             </section>
 
-            <!-- SEÇÃO 2: DETALHES DO DESLOCAMENTO E VISITA (Máxima Compactação) -->
             <section class="card section-visit-details">
                 <h2><i class="fas fa-route icon"></i> Detalhes da Visita e Deslocamento</h2>
                 
                 <div class="time-events-grid">
-                    <!-- Evento 1: Saída da Empresa -->
                     <div class="event-time-block">
                         <label>Saída da Empresa:</label>
                         <div class="date-time-inputs">
@@ -56,7 +168,6 @@
                             <input type="time" id="departureCompanyTime" name="departureCompanyTime" value="09:15" required>
                         </div>
                     </div>
-                    <!-- Evento 2: Chegada ao Cliente -->
                     <div class="event-time-block">
                         <label>Chegada ao Cliente:</label>
                         <div class="date-time-inputs">
@@ -64,7 +175,6 @@
                             <input type="time" id="arrivalClientTime" name="arrivalClientTime" value="10:15" required>
                         </div>
                     </div>
-                    <!-- Evento 3: Saída do Cliente -->
                     <div class="event-time-block">
                         <label>Saída do Cliente:</label>
                         <div class="date-time-inputs">
@@ -72,7 +182,6 @@
                             <input type="time" id="departureClientTime" name="departureClientTime" value="11:15" required>
                         </div>
                     </div>
-                    <!-- Evento 4: Chegada na Empresa -->
                     <div class="event-time-block">
                         <label>Chegada na Empresa:</label>
                         <div class="date-time-inputs">
@@ -85,53 +194,151 @@
                 <div class="form-row-tight km-fields-row">
                     <div class="input-group">
                         <label for="kmInitial">Km Inicial</label>
-                        <input type="number" id="kmInitial" name="kmInitial" placeholder="00000" step="0.1" required>
+                        <input type="number" id="kmInitial" name="kmInitial" placeholder="00000" step="0.1">
                     </div>
                     <div class="input-group">
                         <label for="kmFinal">Km Final</label>
-                        <input type="number" id="kmFinal" name="kmFinal" placeholder="00000" step="0.1" required>
+                        <input type="number" id="kmFinal" name="kmFinal" placeholder="00000" step="0.1">
                     </div>
                 </div>
             </section>
 
-            <!-- SEÇÃO 3: DESPESAS (Compacta) -->
             <section class="card section-expenses">
                 <h2><i class="fas fa-money-bill-wave icon"></i> Despesas</h2>
                 <div class="expenses-grid">
                     <div class="input-group">
-                        <label for="tollCost">Pedágio (R\$)</label>
+                        <label for="tollCost">Pedágio (R$)</label>
                         <input type="number" id="tollCost" name="tollCost" placeholder="0.00" step="0.01" value="0.00">
                     </div>
                     <div class="input-group">
-                        <label for="foodCost">Alimentação (R\$)</label>
+                        <label for="foodCost">Alimentação (R$)</label>
                         <input type="number" id="foodCost" name="foodCost" placeholder="0.00" step="0.01" value="0.00">
                     </div>
                     <div class="input-group">
-                        <label for="lodgingCost">Estadia (R\$)</label>
+                        <label for="lodgingCost">Estadia (R$)</label>
                         <input type="number" id="lodgingCost" name="lodgingCost" placeholder="0.00" step="0.01" value="0.00">
                     </div>
                     <div class="input-group">
-                        <label for="parkingCost">Estacionamento (R\$)</label>
+                        <label for="parkingCost">Estacionamento (R$)</label>
                         <input type="number" id="parkingCost" name="parkingCost" placeholder="0.00" step="0.01" value="0.00">
                     </div>
                 </div>
             </section>
 
-            <!-- SEÇÃO 4: ATIVIDADES REALIZADAS (Mais Compacta) -->
             <section class="card section-activities">
                 <h2><i class="fas fa-tasks icon"></i> Atividades Realizadas</h2>
                 <div class="activity-inputs-grid">
                     <div class="input-group">
                         <label for="activityModule">Módulo</label>
-                        <input type="text" id="activityModule" name="activityModule" placeholder="Ex: CRM">
+                        <select id="activityModule" name="activityModule">
+                            <option value="">Selecione um módulo</option>
+                            <option value="LFI-Sist.Livros Fiscais">LFI-Sist.Livros Fiscais</option>
+                            <option value="FAT-Sist.Vendas e Faturamento">FAT-Sist.Vendas e Faturamento</option>
+                            <option value="FIN-Sist.Controle Financeiro">FIN-Sist.Controle Financeiro</option>
+                            <option value="EST-Sist.Controle de Estoques">EST-Sist.Controle de Estoques</option>
+                            <option value="COM-Sist.Controle de Compras">COM-Sist.Controle de Compras</option>
+                            <option value="GIN-Sist.Gestão Industrial">GIN-Sist.Gestão Industrial</option>
+                            <option value="BTE-Beneficiamento por Terceiros">BTE-Beneficiamento por Terceiros</option>
+                            <option value="CLT-Rastreabilidade de Lotes de Estoque">CLT-Rastreabilidade de Lotes de Estoque</option>
+                            <option value="MOE-Adic.Compras/Financeiro em Outras Moedas">MOE-Adic.Compras/Financeiro em Outras Moedas</option>
+                            <option value="CEI-Adic.Comércio Exterior - Importação">CEI-Adic.Comércio Exterior - Importação</option>
+                            <option value="NFE-Adic.Autententação Nota Fiscal Eletrônica (NF-e)">NFE-Adic.Autententação Nota Fiscal Eletrônica (NF-e)</option>
+                            <option value="CRF-Contr.Reservas de Fat/Vendas">CRF-Contr.Reservas de Fat/Vendas</option>
+                            <option value="IMP-Implantacao Siger">IMP-Implantacao Siger</option>
+                            <option value="GTI-Gestão da Tecnologia da Informação">GTI-Gestão da Tecnologia da Informação</option>
+                            <option value="GER-Geral">GER-Geral</option>
+                            <option value="MHB-Hospedagem Portal BI Rech">MHB-Hospedagem Portal BI Rech</option>
+                            <option value="RTS-Mens.Runtime ISCOBOL">RTS-Mens.Runtime ISCOBOL</option>
+                            <option value="DCR-DashBoard BI Customizada Portal Rech">DCR-DashBoard BI Customizada Portal Rech</option>
+                            <option value="CNV-Migração/Conversão de Dados para SIGER">CNV-Migração/Conversão de Dados para SIGER</option>
+                            <option value="DFR-Repositório DF-e Rech">DFR-Repositório DF-e Rech</option>
+                            <option value="PIE-Planejamento de Inventário de Estoque">PIE-Planejamento de Inventário de Estoque</option>
+                        </select>
                     </div>
                     <div class="input-group">
-                        <label for="activityContact">Contato</label>
-                        <input type="text" id="activityContact" name="activityContact" placeholder="Pessoa de contato">
+                        <label for="activityType">Tipo Atividade</label>
+                        <select id="activityType" name="activityType">
+                            <option value="">Selecione...</option>
+                            <option value="12">GRM-Comercial</option>
+                            <option value="1">GCF-Controladoria</option>
+                            <option value="23">GPD-Desenvolvimento</option>
+                            <option value="22">GTC-Gestão de TI e Cloud</option>
+                            <option value="13">GRM-Implantação</option>
+                            <option value="16">GRM-Manutenção</option>
+                            <option value="11">GRM-Marketing</option>
+                            <option value="90">Outros</option>
+                            <option value="91">GCF-Privacidade de Dados</option>
+                            <option value="15">GRM-Relacionamento</option>
+                            <option value="14">GRM-Suporte</option>
+                            <option value="30">GRM-Treinamento e Capacitação</option>
+                        </select>
+                    </div>
+                    <!-- CAMPO "CONTATO(S)" COM CHECKBOXES ESTILIZADOS COMO SELECT -->
+                    <div class="input-group">
+                        <label>Contato(s)</label>
+                        <div class="custom-multiselect-checkboxes" id="activityContactCheckboxes">
+                            <label><input type="checkbox" name="activityContact[]" value="Fernanda Lima"> Fernanda Lima</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Gustavo Rocha"> Gustavo Rocha</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Patrícia Mendes"> Patrícia Mendes</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Ricardo Gomes"> Ricardo Gomes</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Camila Souza"> Camila Souza</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Eduardo Costa"> Eduardo Costa</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Beatriz Alves"> Beatriz Alves</label>
+                            <label><input type="checkbox" name="activityContact[]" value="Felipe Martins"> Felipe Martins</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="activityAction">Ação</label>
+                        <select id="activityAction" name="activityAction">
+                            <option value="">Selecione uma ação</option>
+                            <option value="Acompanhamento/capacitação colaborador Rech">Acompanhamento/capacitação colaborador Rech</option>
+                            <option value="Análise e elaboração de alterações/customizações">Análise e elaboração de alterações/customizações</option>
+                            <option value="Beneficiamento de Terceiros">Beneficiamento de Terceiros</option>
+                            <option value="Beneficiamento interno">Beneficiamento interno</option>
+                            <option value="Bloqueios do Faturamento - Erro">Bloqueios do Faturamento - Erro</option>
+                            <option value="Bloqueios do Faturamento - Rotinas">Bloqueios do Faturamento - Rotinas</option>
+                            <option value="Bloquetes">Bloquetes</option>
+                            <option value="Boleto de cobrança">Boleto de cobrança</option>
+                            <option value="Cancelamento de nota/pedidos">Cancelamento de nota/pedidos</option>
+                            <option value="Cliente - Fornecedor / Manutenção">Cliente - Fornecedor / Manutenção</option>
+                            <option value="Comissões">Comissões</option>
+                            <option value="Conferencia de dados - Erro Cliente">Conferencia de dados - Erro Cliente</option>
+                            <option value="Conferencia de dados - Erro SIGER">Conferencia de dados - Erro SIGER</option>
+                            <option value="Emissão de notas">Emissão de notas</option>
+                            <option value="Emissão de notas especiais">Emissão de notas especiais</option>
+                            <option value="Emissão duplicatas">Emissão duplicatas</option>
+                            <option value="Emissão relatórios">Emissão relatórios</option>
+                            <option value="Empresa / Manutenção">Empresa / Manutenção</option>
+                            <option value="Erro em relatórios">Erro em relatórios</option>
+                            <option value="Erro processamento arquivos">Erro processamento arquivos</option>
+                            <option value="Estatísticas">Estatísticas</option>
+                            <option value="Formulações">Formulações</option>
+                            <option value="Geração de Planilhas Excel">Geração de Planilhas Excel</option>
+                            <option value="Gráficos">Gráficos</option>
+                            <option value="Importação / Exportação arquivos">Importação / Exportação arquivos</option>
+                            <option value="Integração">Integração</option>
+                            <option value="Integração - Estoques">Integração - Estoques</option>
+                            <option value="Junção automática de pedidos">Junção automática de pedidos</option>
+                            <option value="Lista de preços / Manutenção">Lista de preços / Manutenção</option>
+                            <option value="Nota de devolução de vendas/compras">Nota de devolução de vendas/compras</option>
+                            <option value="Nota fiscal eletrônica (NFE/NF-e)">NFE-Adic.Autententação Nota Fiscal Eletrônica (NF-e)</option>
+                            <option value="Orçamentos - Retiradas / Manutenção">Orçamentos - Retiradas / Manutenção</option>
+                            <option value="Orçamentos / retiradas">Orçamentos / retiradas</option>
+                            <option value="Parâmetros / Manutenção">Parâmetros / Manutenção</option>
+                            <option value="Pedidos / Manutenção.">Pedidos / Manutenção.</option>
+                            <option value="Produtos / Manutenção">Produtos / Manutenção</option>
+                            <option value="Relatórios de produção">Relatórios de produção</option>
+                            <option value="Rótulos/Etiquetas">Rótulos/Etiquetas</option>
+                            <option value="Separação de Pedidos/Preparação de nota">Separação de Pedidos/Preparação de nota</option>
+                            <option value="Sequência nat. operação">Sequência nat. operação</option>
+                            <option value="Tabelas / manutenção">Tabelas / manutenção</option>
+                            <option value="Trabalhos de Conversão">Trabalhos de Conversão</option>
+                            <option value="Treinamento usuários">Treinamento usuários</option>
+                        </select>
                     </div>
                     <div class="input-group input-description">
                         <label for="activityDescription">Descrição</label>
-                        <textarea id="activityDescription" name="activityDescription" rows="1" placeholder="Detalhes do que foi feito..."></textarea>
+                        <textarea id="activityDescription" name="activityDescription" rows="5" placeholder="Detalhes do que foi feito..."></textarea>
                     </div>
                 </div>
                 <button type="button" id="addActivityBtn" class="button button-secondary button-add-activity">
@@ -147,7 +354,6 @@
                 </div>
             </section>
 
-            <!-- BOTÕES DE AÇÃO PRINCIPAIS -->
             <div class="form-actions">
                 <button type="submit" class="button button-primary"><i class="fas fa-check-circle"></i> Incluir Atendimento</button>
                 <button type="button" class="button button-tertiary"><i class="fas fa-arrow-left"></i> Voltar</button>
@@ -156,5 +362,84 @@
     </div>
 
     <script src="form-script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lógica para o número do protocolo (permanece a mesma)
+            let protocolNumElement = document.getElementById('protocolNumber');
+            // ... (sua lógica de protocolo) ...
+
+            // Lógica para o botão de lupa (permanece a mesma)
+            const clientCodeSearchInput = document.getElementById('clientCodeSearch');
+            const searchButton = clientCodeSearchInput.closest('.search-input-with-button').querySelector('.search-button');
+            searchButton.addEventListener('click', function() {
+                alert('Funcionalidade de busca ativada! Em uma aplicação real, aqui seria feita uma requisição ao backend para pesquisar pelo termo digitado: "' + clientCodeSearchInput.value + '".');
+            });
+
+            // NOVA LÓGICA PARA O BOTÃO "INCLUIR ATIVIDADE"
+            const addActivityBtn = document.getElementById('addActivityBtn');
+            const activitiesIncludedList = document.getElementById('activitiesIncluded');
+            const noActivitiesMessage = document.getElementById('noActivitiesMessage');
+
+            addActivityBtn.addEventListener('click', function() {
+                const activityModule = document.getElementById('activityModule').value;
+                const activityType = document.getElementById('activityType').value;
+                const activityAction = document.getElementById('activityAction').value;
+                const activityDescription = document.getElementById('activityDescription').value;
+                
+                // COLETANDO OS CONTATOS DOS CHECKBOXES
+                const selectedContacts = [];
+                document.querySelectorAll('input[name="activityContact[]"]:checked').forEach(checkbox => {
+                    selectedContacts.push(checkbox.value);
+                });
+                const contactsDisplay = selectedContacts.length > 0 ? selectedContacts.join(', ') : 'Nenhum contato selecionado';
+
+                // Validação básica (adapte conforme sua necessidade)
+                if (!activityModule || !activityType || !activityAction || !activityDescription) {
+                    alert('Por favor, preencha todos os campos da atividade.');
+                    return;
+                }
+
+                // Cria um novo item na lista de atividades
+                const newActivityItem = document.createElement('li');
+                newActivityItem.innerHTML = `
+                    <strong>Módulo:</strong> ${activityModule} <br>
+                    <strong>Tipo:</strong> ${activityType} <br>
+                    <strong>Ação:</strong> ${activityAction} <br>
+                    <strong>Contato(s):</strong> ${contactsDisplay} <br>
+                    <strong>Descrição:</strong> ${activityDescription}
+                    <button type="button" class="remove-activity-btn">Remover</button>
+                `;
+                activitiesIncludedList.appendChild(newActivityItem);
+
+                // Adiciona funcionalidade de remover
+                newActivityItem.querySelector('.remove-activity-btn').addEventListener('click', function() {
+                    newActivityItem.remove();
+                    if (activitiesIncludedList.children.length === 0) {
+                        noActivitiesMessage.style.display = 'block';
+                    }
+                });
+
+                // Esconde a mensagem de "Nenhuma atividade" se houver atividades
+                if (activitiesIncludedList.children.length > 0) {
+                    noActivitiesMessage.style.display = 'none';
+                }
+
+                // Limpa os campos após adicionar (opcional)
+                document.getElementById('activityModule').value = '';
+                document.getElementById('activityType').value = '';
+                document.getElementById('activityAction').value = '';
+                document.getElementById('activityDescription').value = '';
+                document.querySelectorAll('input[name="activityContact[]"]').forEach(checkbox => {
+                    checkbox.checked = false; // Desmarca todos os checkboxes de contato
+                });
+            });
+            // Inicializa o estado da mensagem de "nenhuma atividade"
+            if (activitiesIncludedList.children.length === 0) {
+                noActivitiesMessage.style.display = 'block';
+            } else {
+                noActivitiesMessage.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
