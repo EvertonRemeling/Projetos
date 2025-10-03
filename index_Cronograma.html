@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Link para o Font Awesome para os ícones (setas do acordeão) -->
+    <!-- Link para o Font Awesome para os ícones (setas do acordeão, ícone de cópia) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wL2s+B6hL2p+z7/2D5iJ/3zWwB6C7zGvL8f6a+I7T/e2E+FjE7Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- SEU CSS PERSONALIZADO - CERTIFIQUE-SE DE QUE O NOME DO ARQUIVO E O CAMINHO ESTÃO CORRETOS -->
@@ -23,34 +23,13 @@
             <div class="sidebar-header">
                 <h2>Cronograma de Visitas</h2>
             </div>
-<div class="sidebar-navigation-controls">
-                <a href="index_Projeto.html" class="button primary-button">Sair</a>
-            </div>
 
-
-            <div class="controls-group">
-                    <button id="importSpreadsheetBtn" title="Importar planilha de visitas">Importar Planilha</button>
-                    <input type="file" id="spreadsheetFileInput" accept=".csv, .xlsx" style="display: none;">
-                </div>
-
-  <div class="sidebar-bottom-controls">
-    <button id="integrateSiclaBtn" title="Integrar o cronograma com o SGCIA">Integrar SICLA</button>
-                <button id="printScheduleBtn" title="Imprimir o cronograma atual">Imprimir Cronograma</button>
-                
-            </div>
+            <!-- BOTÕES DE NAVEGAÇÃO -->
             <div class="sidebar-navigation-controls">
                 <a href="acompanhamento_Cronograma.html" class="button primary-button">Consulta de Acompanhamento</a>
+                <a href="maintenance_Cronograma.html" class="button secondary-button">Manutenção de Agendas</a> <!-- NOVO BOTÃO -->
             </div>
-
-            <div id="calendarInstructions">
-                <p><strong>Dica:</strong> Para copiar uma atividade para outro dia ou turno, arraste o cartão segurando a tecla <kbd>ALT</kbd>.</p>
-                <p><strong>Dica:</strong> Para alocar um <strong>grupo inteiro de visitas</strong> para um dia e turno, arraste o <strong>título da lista</strong> para o calendário.</p>
-            </div>
-        </br>
-
-            <!-- NOVO BOTÃO DE NAVEGAÇÃO -->
-            
-            <!-- FIM DO NOVO BOTÃO DE NAVEGAÇÃO -->
+            <!-- FIM DOS BOTÕES DE NAVEGAÇÃO -->
 
             <div class="sidebar-controls">
                 <div class="controls-group">
@@ -64,14 +43,25 @@
                         <!-- Options serão populadas via JS -->
                     </select>
                 </div>
-                
+                <div class="controls-group">
+                    <button id="importSpreadsheetBtn" title="Importar planilha de visitas">Importar Planilha</button>
+                    <input type="file" id="spreadsheetFileInput" accept=".csv, .xlsx" style="display: none;">
+                </div>
             </div>
             
             <div id="boardsContainer" class="accordion-boards">
                 <!-- As Visitas (Boards) serão renderizadas aqui pelo JS como itens de acordeão -->
             </div>
 
-          
+            <div class="sidebar-bottom-controls">
+                <button id="printScheduleBtn" title="Imprimir o cronograma atual">Imprimir Cronograma</button>
+                <button id="integrateSiclaBtn" title="Integrar o cronograma com o SGCIA">Integrar SGCIA</button>
+            </div>
+
+            <div id="calendarInstructions">
+                <p><strong>Dica:</strong> Para copiar uma atividade para outro dia ou turno, arraste o cartão segurando a tecla <kbd>ALT</kbd>.</p>
+                <p><strong>Dica:</strong> Para alocar um <strong>grupo inteiro de visitas</strong> para um dia e turno, arraste o <strong>título da lista</strong> para o calendário.</p>
+            </div>
         </aside>
 
         <main class="calendar-main-content">
@@ -107,7 +97,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     
-    <!-- SEU JAVASCRIPT PERSONALIZADO - CERTIFIQUE-SE DE QUE O NOME DO ARQUIVO E O CAMINHO ESTÃO CORRETOS -->
+    <!-- SEU JAVASCRIPT PERSONALIZADO -->
     <script src="script_Cronograma.js"></script>
 </body>
 </html>
