@@ -1,0 +1,867 @@
+/* ========================================================= */
+/* 1. Global Reset & Base Styles - Otimizado e Modernizado */
+/* ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Paleta de Cores */
+  --primary-color: #007bff; /* Azul vibrante para destaque */
+  --secondary-color: #6c757d; /* Cinza para elementos secundários */
+  --success-color: #28a745; /* Verde para ações de sucesso */
+  --info-color: #17a2b8; /* Ciano para informações */
+  --light-bg: #f8f9fa; /* Fundo principal claro */
+  --medium-bg: #e9ecef; /* Fundo secundário, como headers */
+  --dark-bg: #dee2e6; /* Fundo para bordas e separadores */
+  --white-bg: #ffffff; /* Fundo de cards e containers */
+
+  /* Cores de Texto */
+  --text-dark: #343a40;
+  --text-medium: #495057;
+  --text-light: #6c757d;
+
+  /* Sombras */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow-md: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+  /* Bordas */
+  --border-radius: 0.375rem; /* Bordas arredondadas padrão */
+  --border-color: #ced4da;
+
+  /* Sidebar */
+  --sidebar-width: 320px; /* Largura padrão da sidebar */
+}
+
+/* MUITO IMPORTANTE: Garante que HTML e BODY ocupem toda a altura */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Evita rolagem indesejada do navegador */
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Usando Inter como preferencial, limpa e moderna */
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--light-bg);
+  margin: 0;
+  padding: 0; /* Remove padding do body para layout full-screen */
+  display: flex; /* Adiciona display flex aqui também para robustez */
+  justify-content: center;
+  align-items: stretch; /* Garante que o item filho (main-wrapper) se estique em altura */
+}
+
+/* Estilo para a barra de rolagem (WebKit - Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--medium-bg); /* Cor clara para a trilha */
+  border-radius: var(--border-radius);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color); /* Cor mais escura para o polegar */
+  border-radius: var(--border-radius);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-medium);
+}
+
+/* Elemento para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+
+/* ========================================================= */
+/* 2. Main Wrapper - Novo container para layout lateral */
+/* ========================================================= */
+.main-wrapper {
+    display: flex;
+    flex-direction: row; /* Garante que os filhos fiquem lado a lado */
+    width: 100%; /* Ocupa 100% da largura do body */
+    height: 100%; /* Ocupa 100% da altura do body */
+    overflow: hidden; /* Gerencia a rolagem interna */
+    max-width: 100vw; /* Garante que não ultrapasse a largura da viewport */
+    max-height: 100vh; /* Garante que não ultrapasse a altura da viewport */
+}
+
+/* ========================================================= */
+/* 3. Sidebar (Painel Lateral Esquerdo) */
+/* ========================================================= */
+.sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0; /* Impede a sidebar de encolher */
+    background-color: var(--white-bg);
+    box-shadow: var(--shadow-lg); /* Sombra mais pronunciada para destacar */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto; /* Rolagem vertical para o conteúdo da sidebar */
+    z-index: 10; /* Garante que a sidebar fique acima de outros elementos em caso de sobreposição */
+}
+
+.sidebar-header h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.sidebar-controls {
+    margin-bottom: 20px;
+    flex-shrink: 0; /* Impede os controles de encolher */
+}
+
+.controls-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.controls-group:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================================= */
+/* 4. Boards Container (Acordeão) */
+/* ========================================================= */
+.accordion-boards {
+    flex-grow: 1; /* Permite que o contêiner de boards ocupe o espaço restante */
+    margin-bottom: 20px;
+    border-top: 1px solid var(--dark-bg); /* Separador visual */
+    padding-top: 15px;
+}
+
+.board-accordion-item {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    overflow: hidden; /* Garante que o conteúdo oculto não vaze */
+}
+
+.accordion-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-dark);
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: var(--medium-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    border-bottom: 1px solid transparent; /* Para evitar jump quando abre */
+    box-shadow: var(--shadow-sm); /* Sombra para o título */
+}
+
+.accordion-title:hover {
+    background-color: var(--dark-bg);
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-title.active {
+    background-color: var(--primary-color);
+    color: var(--white-bg);
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.accordion-title.active .accordion-icon {
+    color: var(--white-bg);
+}
+
+.accordion-icon {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+    color: var(--text-medium);
+}
+
+.accordion-title.active .accordion-icon {
+    transform: rotate(90deg); /* Gira o ícone para indicar aberto */
+}
+
+.board-items {
+    padding: 0 10px; /* Padding apenas lateral */
+    max-height: 0; /* Começa fechado */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* Transição para abrir/fechar */
+    background-color: var(--white-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espaço entre cartões */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.board-items.expanded {
+    max-height: 180px; /* Altura para 5 cartões (aprox. 32px cada + 8px gap) */
+    overflow-y: auto; /* Rolagem se houver mais de 5 cartões */
+    border-top: 1px dashed var(--dark-bg); /* Separador interno */
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+/* Altera o padding do .board-items quando expandido para não ter padding-left no .accordion-title */
+.board-accordion-item .board-items.expanded {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* Estilo específico para o board-items quando usado no acordeão para drag-and-drop */
+.accordion-boards .board-accordion-item .board-items {
+  border: none; /* Remove a borda tracejada, que é para indicar área de drop no calendário */
+}
+
+
+.sidebar-bottom-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    flex-shrink: 0;
+}
+
+/* ========================================================= */
+/* 5. Calendar Main Content */
+/* ========================================================= */
+.calendar-main-content {
+    flex-grow: 1; /* Ocupa todo o espaço restante */
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Padding ao redor do calendário */
+    overflow-y: auto; /* Rolagem vertical para o conteúdo principal */
+}
+
+.calendar-section {
+    background-color: var(--white-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permite que o calendário preencha a altura disponível */
+    min-height: calc(100vh - 100px); /* Altura mínima para o calendário */
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+  width: 100%; /* Ocupa toda a largura disponível */
+  margin: 0 0 20px 0; /* Remove margin auto */
+}
+
+#calendarMonthYear {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendar-nav button {
+  background-color: var(--secondary-color);
+  color: var(--white-bg);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background-color 0.2s ease;
+}
+.calendar-nav button:hover {
+  background-color: #5a6268;
+}
+
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  border-top: 1px solid var(--border-color); 
+  border-left: 1px solid var(--border-color);
+  flex-shrink: 0; 
+  width: 100%; /* Ocupa toda a largura disponível */
+  margin: 0; /* Remove margin auto */
+}
+
+.calendar-weekday {
+  background-color: var(--medium-bg);
+  padding: 10px 5px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95em;
+  color: var(--text-medium);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+#calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 colunas de largura igual */
+  gap: 1px;
+  border-right: 1px solid var(--border-color); 
+  border-bottom: 1px solid var(--border-color); 
+  flex-grow: 1; /* Permite que o grid cresça e ocupe a altura restante da seção */
+  width: 100%; /* Ocupa toda a largura disponível */
+  margin: 0; /* Remove margin auto */
+}
+
+.calendar-day {
+  background-color: var(--white-bg);
+  min-height: 120px; /* Altura mínima razoável para o dia */
+  height: auto; /* Permite que a altura seja determinada pelo conteúdo ou pelo grid */
+  border-top: 1px solid var(--border-color); 
+  border-left: 1px solid var(--border-color); 
+  padding: 8px;
+  display: flex;
+  flex-direction: column; 
+  gap: 8px;
+  overflow: hidden; /* Mantido para garantir que o conteúdo não vaze do dia */
+  position: relative; 
+  transition: background-color 0.2s ease;
+}
+
+.calendar-day:hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-day.empty {
+  background-color: var(--light-bg);
+  opacity: 0.8;
+}
+
+.day-number {
+  font-weight: 700;
+  font-size: 1.1em;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+  text-align: right;
+  padding-right: 5px;
+  flex-shrink: 0;
+}
+
+.shift-slot {
+  background-color: var(--light-bg);
+  border-radius: var(--border-radius);
+  padding: 8px;
+  flex-grow: 1;
+  min-height: 40px; 
+  display: flex;
+  flex-direction: column; 
+  gap: 5px; 
+  max-height: 210px; /* 5 cartões + header + padding */
+  overflow-y: auto;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.05);
+  border: 1px dashed var(--dark-bg); /* Borda tracejada para indicar área de drop */
+}
+
+.shift-slot .shift-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px; 
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--dark-bg);
+  flex-shrink: 0;
+}
+
+.shift-slot .shift-header h4 {
+  font-size: 0.9em;
+  color: var(--text-medium);
+  font-weight: 500;
+}
+
+.new-attendance-btn {
+  font-size: 0.8em;
+  padding: 4px 8px;
+  background-color: var(--success-color);
+  color: var(--white-bg);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.new-attendance-btn:hover {
+  background-color: #218838;
+}
+
+/* ========================================================= */
+/* 6. Cards (Activities) - Visual de card moderno */
+/* ========================================================= */
+.card {
+  background-color: var(--white-bg);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--primary-color);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  cursor: grab;
+  font-size: 0.9em;
+  margin: 0; 
+  width: 100%; 
+  max-width: 100%; 
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  white-space: normal; 
+  user-select: none; 
+
+  display: flex; 
+  align-items: flex-start; 
+  gap: 10px; 
+  flex-shrink: 0;
+  line-height: 1.3;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.card:active {
+  cursor: grabbing;
+}
+
+.card small {
+  font-size: 0.8em;
+  color: var(--text-light);
+  display: block;
+  margin-top: 3px;
+}
+
+.card-checkbox-wrapper {
+  display: flex;
+  align-items: flex-start; 
+  flex-grow: 1; 
+  min-width: 0; 
+}
+
+.card-checkbox {
+  margin-top: 2px; 
+  flex-shrink: 0; 
+  accent-color: var(--primary-color);
+}
+
+.card[data-is-checked="true"] {
+  background-color: #e6ffed; 
+  border-color: var(--success-color);
+  border-left-color: var(--success-color);
+  color: #1a6d2f;
+  opacity: 0.8;
+}
+
+.card[data-is-checked="true"] small {
+  color: #1a6d2f;
+}
+
+/* ========================================================= */
+/* 7. Drag & Drop Feedback (Sortable.js & Custom) */
+/* ========================================================= */
+.sortable-ghost {
+  opacity: 0.4;
+  background-color: var(--info-color);
+  border-color: var(--info-color);
+  box-shadow: none;
+}
+
+.sortable-drag {
+  opacity: 0.9;
+  border: 2px dashed var(--primary-color);
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.02);
+}
+
+#boardDragGhost {
+  position: absolute;
+  top: -9999px; 
+  left: -9999px;
+  z-index: 1000;
+  background-color: var(--primary-color);
+  color: var(--white-bg);
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+  font-size: 0.9em;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none; 
+  display: none; 
+}
+
+.calendar-day.drag-over {
+  background-color: #e6f7ff; 
+  border: 1px dashed var(--primary-color);
+}
+
+.calendar-day.drag-over .shift-slot.drag-over-slot {
+  background-color: #cceeff; 
+  border: 1px dashed var(--primary-color);
+}
+
+/* ========================================================= */
+/* 8. Forms & Controls - Modernizado */
+/* ========================================================= */
+select, button, input[type="text"] { 
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9em;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select {
+    min-width: 100%; /* Ocupa 100% da largura do seu container flex */
+    background-color: var(--white-bg);
+    color: var(--text-dark);
+}
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+input[type="file"] {
+  display: none; 
+}
+
+button {
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--white-bg);
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: var(--shadow-md);
+}
+
+#importSpreadsheetBtn {
+    background-color: var(--success-color);
+    width: 100%; /* Ocupa 100% da largura do seu container flex */
+}
+#importSpreadsheetBtn:hover {
+    background-color: #218838;
+}
+
+.sidebar-bottom-controls button {
+    flex-grow: 1; /* Botões dividem o espaço igualmente */
+    width: auto; /* Anula o 100% dos controles */
+}
+
+/* ========================================================= */
+/* 9. Calendar Instructions */
+/* ========================================================= */
+#calendarInstructions {
+  background-color: #e2f0fb; 
+  border-left: 5px solid var(--info-color); 
+  padding: 15px; 
+  margin-top: 25px; 
+  border-radius: var(--border-radius);
+  color: #0056b3;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+
+#calendarInstructions p {
+    margin-bottom: 8px; 
+}
+
+#calendarInstructions p:last-child {
+    margin-bottom: 0;
+}
+
+kbd {
+  background-color: var(--medium-bg);
+  border-radius: 3px;
+  border: 1px solid var(--dark-bg);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-dark);
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.8em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+
+/* ========================================================= */
+/* 10. Responsive Adjustments */
+/* ========================================================= */
+@media (max-width: 1200px) {
+  /* Adaptação da sidebar para não ficar muito grande em resoluções intermediárias */
+  :root {
+      --sidebar-width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-wrapper {
+    flex-direction: column; /* Empilha sidebar e calendário */
+    height: auto; /* Permite que a página role verticalmente */
+    overflow-y: auto;
+  }
+
+  .sidebar {
+    width: 100%; /* Sidebar ocupa toda a largura */
+    flex-shrink: 1; /* Permite encolher se necessário */
+    box-shadow: none; /* Remove sombra para transição suave */
+    border-bottom: 1px solid var(--border-color); /* Separador visual */
+    padding-bottom: 10px;
+  }
+
+  .sidebar-header h2 {
+      text-align: center;
+  }
+
+  .sidebar-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+  }
+  .controls-group {
+      flex-direction: column;
+      gap: 10px;
+  }
+  .controls-group select, .controls-group button {
+      width: 100%; /* Ocupam largura total */
+      min-width: unset;
+  }
+
+  .accordion-boards {
+      padding-top: 0; /* Remove padding extra */
+      margin-bottom: 15px;
+  }
+  .sidebar-bottom-controls {
+      flex-direction: column;
+  }
+  .sidebar-bottom-controls button {
+      width: 100%;
+  }
+
+  .calendar-main-content {
+    padding: 15px; /* Reduz padding */
+    width: 100%; /* Ocupa toda a largura */
+    min-height: auto; /* Deixa a altura ser flexível */
+  }
+
+  .calendar-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+    .calendar-header {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .calendar-nav {
+        width: 100%;
+        justify-content: space-between;
+    }
+    #calendarMonthYear {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5em;
+        order: -1; /* Mês/ano acima dos botões */
+    }
+    .calendar-nav button {
+        flex-grow: 1; /* Botões dividem o espaço */
+    }
+    .calendar-nav button:first-child { margin-right: 5px; }
+    .calendar-nav button:last-child { margin-left: 5px; }
+
+
+    .board-column {
+        flex: 0 0 90%; /* Mais estreito para telas muito pequenas */
+        max-width: 90%;
+        margin-right: 10px;
+    }
+
+    .calendar-day {
+        min-height: 90px;
+        padding: 5px;
+    }
+    .shift-slot {
+        max-height: 150px;
+        padding: 5px;
+    }
+    .card {
+        font-size: 0.8em;
+        padding: 8px;
+    }
+    .shift-slot .shift-header h4, .new-attendance-btn {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar, .calendar-main-content {
+        padding: 10px;
+    }
+    .sidebar-header h2 {
+        font-size: 1.3em;
+    }
+    .calendar-section {
+        padding: 10px;
+    }
+    .calendar-weekday {
+        font-size: 0.85em;
+        padding: 8px 3px;
+    }
+    .day-number {
+        font-size: 1em;
+    }
+}
+
+/* Card Module Tag */
+.card-module-tag {
+  font-size: 0.7em; /* Slightly smaller */
+  font-weight: 700;
+  color: var(--primary-color);
+  background-color: var(--medium-bg); /* Use medium background for contrast */
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-right: 5px; /* Spacing after module */
+  display: inline-block;
+  line-height: 1; /* Compact */
+  margin-bottom: 2px; /* Space from description */
+}
+
+/* Ajustar layout geral do card para acomodar o módulo e texto */
+.card {
+  flex-direction: column; /* Module e description empilhados */
+  align-items: flex-start;
+  gap: 2px; /* Espaçamento entre módulo e texto principal */
+}
+
+/* Container para o texto principal do card (descrição + técnicos) */
+.card .card-text-content {
+  font-size: 0.9em;
+  line-height: 1.3;
+  word-wrap: break-word; /* Garante quebras de linha em textos longos */
+}
+
+/* Estilo para o nome do técnico dentro do card-text-content */
+.card .card-text-content small {
+    display: block; /* Garante que o técnico vá para a linha de baixo */
+    font-size: 0.8em;
+    color: var(--text-light);
+    margin-top: 2px; /* Pequena margem acima do nome do técnico */
+}
+
+/* --- Ajustes específicos para cards no calendário (com checkbox) --- */
+
+/* Wrapper do checkbox e conteúdo */
+.card-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start; /* Alinha checkbox com o topo do conteúdo */
+    gap: 5px; /* Espaço entre checkbox e o conteúdo */
+    flex-grow: 1;
+}
+
+/* Container para o módulo e descrição dentro do wrapper do checkbox */
+.card-checkbox-wrapper .card-content-container {
+    display: flex;
+    flex-direction: column; /* Módulo e descrição empilhados */
+    flex-grow: 1;
+    min-width: 0; /* Permite que o conteúdo encolha se necessário */
+}
+
+/* O texto da descrição dentro do card com checkbox */
+.card-checkbox-wrapper .card-text-content {
+    /* Herda estilos de .card-text-content */
+}
+
+/* --- Novo Estilo para os Botões de Navegação na Sidebar --- */
+.sidebar-navigation-controls {
+    margin-bottom: 20px; /* Espaço antes de outros controles */
+    padding-bottom: 15px; /* Espaço antes do separador visual */
+    border-bottom: 1px solid var(--dark-bg); /* Separador visual */
+    display: flex;
+    flex-direction: column; /* Para empilhar botões, se houver mais de um */
+    gap: 10px; /* Espaço entre botões */
+}
+
+/* Ajusta o botão dentro do novo container da sidebar */
+.sidebar-navigation-controls .button {
+    width: 100%; /* Faz o botão ocupar toda a largura da sidebar */
+    margin-top: 0; /* Remove a margem superior padrão que a classe 'button' pode ter */
+    font-size: 0.95em; /* Ajusta o tamanho da fonte para o contexto da sidebar */
+    padding: 10px 15px; /* Ajusta o preenchimento */
+}
+
+/* Pequeno ajuste para o botão de voltar na tracking_Cronograma.html,
+   caso a estilização inline 'margin-top: 20px;' seja removida futuramente. */
+#tracking-back-button {
+    margin-top: 20px;
+}
+
+/* Garante que o .button na tracking_Cronograma.html tenha a mesma largura máxima que seu container */
+.container > .button {
+    max-width: 100%; /* Garante que o botão não estoure o layout em telas menores */
+    display: block; /* Para que margin: auto funcione horizontalmente */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* --- ESTILOS PARA CARTÕES COPIADOS NO CALENDÁRIO --- */
+.card.card-copied {
+    border: 2px dashed var(--accent-color); /* Borda tracejada para indicar cópia */
+    background-color: var(--light-bg); /* Um fundo um pouco mais claro */
+    position: relative; /* Para posicionar o ícone de cópia */
+    padding-left: 25px; /* Deixa espaço para o ícone */
+}
+
+.card-copied .copy-indicator-icon {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: var(--accent-color); /* Cor do ícone */
+    font-size: 0.8em;
+    z-index: 10; /* Garante que o ícone fique por cima */
+}
+
+/* Ajustes para o layout do card quando tem ícone */
+.card-copied .card-checkbox-wrapper {
+    margin-left: 0; /* Remove margem extra se o ícone empurrar o wrapper */
+}
+
+/* --- AJUSTES GERAIS PARA O RELATÓRIO DE IMPRESSÃO (VIA style_Cronograma.css) --- */
+/* Certifica que o texto da coluna "Cópia?" fique centralizado */
+@media print {
+    .cronograma-table th:nth-last-child(1), /* Ultima coluna (Cópia?) */
+    .cronograma-table td:nth-last-child(1) { /* Ultima coluna (Cópia?) */
+        text-align: center;
+    }
+}

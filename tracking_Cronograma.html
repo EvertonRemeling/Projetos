@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Visita - Cronograma</title>
+    <!-- Link para a fonte Inter do Google Fonts (moderna e limpa) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link para o Font Awesome se for usar ícones aqui -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wL2s+B6hL2p+z7/2D5iJ/3zWwB6C7zGvL8f6a+I7T/e2E+FjE7Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- SEU CSS PERSONALIZADO - Reutiliza o CSS base para consistência visual -->
+    <link rel="stylesheet" href="style_Cronograma.css"> 
+</head>
+<body style="padding: 20px;">
+    <div class="container" style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: var(--white-bg); border-radius: var(--border-radius); box-shadow: var(--shadow-md);">
+        <h1>Detalhes da Visita</h1>
+        <div id="visit-details">
+            <p><strong>ID da Visita:</strong> <span id="detail-id"></span></p>
+            <p><strong>ID Original:</strong> <span id="detail-original-id"></span></p>
+            <p><strong>Módulo:</strong> <span id="detail-module"></span></p>
+            <p><strong>Descrição:</strong> <span id="detail-description"></span></p>
+            <p><strong>Técnicos:</strong> <span id="detail-tecnicos"></span></p>
+            <p><strong>Data:</strong> <span id="detail-date"></span></p>
+            <p><strong>Turno:</strong> <span id="detail-shift"></span></p>
+            <p><strong>Status (Concluída):</strong> <span id="detail-is-checked"></span></p>
+            <!-- Adicione mais detalhes conforme necessário -->
+        </div>
+        <!-- BOTÃO DE VOLTAR ATUALIZADO -->
+        <a href="index_Cronograma.html" id="back-button" class="button" style="margin-top: 20px;">Voltar ao Cronograma Principal</a>
+    </div>
+
+    <!-- SEU JAVASCRIPT PERSONALIZADO -->
+    <script src="tracking_Cronograma.js"></script>
+</body>
+</html>

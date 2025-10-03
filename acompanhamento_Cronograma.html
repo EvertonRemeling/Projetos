@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento do Cronograma Online</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" href="acompanhamento_Cronograma.css">
+    <!-- Opcional: Link para Google Fonts para uma fonte mais moderna, se quiser. Exemplo: Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones (especialmente o de cópia) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wL2s+B6hL2p+z7/2D5iJ/3zWwB6C7zGvL8f6a+I7T/e2E+FjE7Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <h1>Acompanhamento do Cronograma Online</h1>
+
+        <!-- Wrapper para tornar a tabela responsiva -->
+        <div class="table-responsive">
+            <table class="cronograma-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Turno</th>
+                        <th>Módulo</th>
+                        <th>Assunto</th>
+                        <th>Técnicos Envolvidos</th>
+                        <th>Realizada?</th>
+                        <th>Cópia?</th> <!-- NOVA COLUNA -->
+                    </tr>
+                </thead>
+                <tbody id="report-table-body">
+                    <!-- Conteúdo será carregado dinamicamente pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botão para retornar à página principal -->
+        <div class="button-container">
+            <button id="back-to-main-btn" class="button primary-button">Voltar ao Cronograma Principal</button>
+        </div>
+    </div>
+
+    <!-- Script JavaScript para carregar as tarefas e o botão -->
+    <script src="acompanhamento_Cronograma.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+/* Importa a fonte Roboto do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Reset básico e estilos fundamentais */
+body {
+    font-family: 'Roboto', sans-serif; /* Usa Roboto, ou Arial/sans-serif como fallback */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Fundo suave */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1050px; /* Largura máxima para o conteúdo */
+    margin: 40px auto; /* Centraliza o container na página */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px; /* Bordas arredondadas para o container */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil para um efeito de profundidade */
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50; /* Cor mais escura para o título */
+    margin-bottom: 30px;
+    font-size: 2.5em; /* Tamanho maior para o título */
+    font-weight: 700; /* Mais negrito */
+    letter-spacing: 0.8px;
+    text-transform: uppercase; /* Título em maiúsculas */
+}
+
+/* Estilos da Tabela */
+.table-responsive {
+    overflow-x: auto; /* Permite rolagem horizontal em telas pequenas */
+}
+
+.cronograma-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove o espaçamento entre as bordas das células */
+    margin: 0;
+    font-size: 0.95em;
+    min-width: 700px; /* Garante que a tabela tenha uma largura mínima, para não quebrar muito */
+}
+
+.cronograma-table thead th {
+    background-color: #007bff; /* Azul vibrante para o cabeçalho */
+    color: white;
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 500; /* Peso da fonte médio */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 3px solid #0056b3; /* Borda mais escura no fundo do cabeçalho */
+}
+
+/* Arredonda os cantos do cabeçalho da tabela */
+.cronograma-table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.cronograma-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+
+.cronograma-table tbody tr {
+    border-bottom: 1px solid #e9ecef; /* Linhas divisórias claras */
+}
+
+.cronograma-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Fundo mais claro para linhas pares (zebra striping) */
+}
+
+.cronograma-table tbody tr:hover {
+    background-color: #e2f0ff; /* Cor suave ao passar o mouse */
+    cursor: pointer; /* Muda o cursor para indicar interatividade */
+    transform: translateY(-2px); /* Efeito sutil de "levantar" */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* Sombra no hover */
+    transition: all 0.2s ease-in-out; /* Transição suave para os efeitos */
+}
+
+.cronograma-table tbody td {
+    padding: 12px 20px;
+    vertical-align: middle; /* Alinha o conteúdo ao meio */
+    color: #495057; /* Cor do texto das células */
+}
+
+/* Ajustes de alinhamento para colunas específicas (agora com a coluna "Cópia?") */
+.cronograma-table td:nth-child(1), /* Data */
+.cronograma-table td:nth-child(2), /* Turno */
+.cronograma-table td:nth-child(3)  /* Módulo */
+{
+    text-align: center;
+}
+
+/* Colunas "Realizada?" e "Cópia?" centralizadas */
+.cronograma-table td:nth-last-child(1), /* Cópia? */
+.cronograma-table td:nth-last-child(2) /* Realizada? */
+{
+    text-align: center;
+}
+
+/* Opcional: Larguras mínimas para colunas específicas para melhor controle */
+.cronograma-table th:nth-child(1), .cronograma-table td:nth-child(1) { min-width: 100px; } /* Data */
+.cronograma-table th:nth-child(2), .cronograma-table td:nth-child(2) { min-width: 80px; }  /* Turno */
+.cronograma-table th:nth-child(3), .cronograma-table td:nth-child(3) { min-width: 80px; }  /* Módulo */
+.cronograma-table th:nth-child(5), .cronograma-table td:nth-child(5) { min-width: 150px; } /* Técnicos Envolvidos */
+.cronograma-table th:nth-last-child(1), .cronograma-table td:nth-last-child(1) { min-width: 70px; } /* Cópia? */
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .cronograma-table {
+        min-width: unset; /* Permite que a tabela encolha em telas menores */
+    }
+
+    .cronograma-table thead th,
+    .cronograma-table tbody td {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .cronograma-table thead th,
+    .cronograma-table tbody td {
+        padding: 8px 10px;
+        font-size: 0.85em;
+    }
+}
+
+/* --- Estilos para a Tabela de Acompanhamento --- */
+/* Certifica que o texto da coluna "Realizada?" fique centralizado */
+.cronograma-table th:last-child,
+.cronograma-table td:last-child {
+    text-align: center;
+}
+
+/* Estilo para quando não há tarefas */
+.no-tasks-message {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #6c757d;
+    font-size: 1.1em;
+}
+
+/* --- Estilo para o Botão "Voltar ao Cronograma Principal" --- */
+.button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.button {
+    /* Estilo base para botões, reutilizando o que já existe em style_Cronograma.css,
+       ou definindo um estilo simples aqui se for o único botão */
+    display: inline-block;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none; /* Para usar em tags <a> */
+}
+
+.primary-button {
+    background-color: #007bff; /* Azul primário */
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
+.primary-button:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Responsividade do botão */
+@media (max-width: 768px) {
+    .button-container {
+        padding: 0 15px; /* Adiciona padding nas laterais em telas menores */
+    }
+    .button {
+        width: 100%; /* Botão ocupa 100% da largura em telas menores */
+        max-width: 300px; /* Limita a largura máxima mesmo em 100% */
+    }
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Visitas</title>
+    
+    <!-- Link para a fonte Inter do Google Fonts (moderna e limpa) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link para o Font Awesome para os ícones (setas do acordeão) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0wL2s+B6hL2p+z7/2D5iJ/3zWwB6C7zGvL8f6a+I7T/e2E+FjE7Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- SEU CSS PERSONALIZADO - CERTIFIQUE-SE DE QUE O NOME DO ARQUIVO E O CAMINHO ESTÃO CORRETOS -->
+    <link rel="stylesheet" href="style_Cronograma.css"> 
+    
+</head>
+<body>
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Cronograma de Visitas</h2>
+            </div>
+<div class="sidebar-navigation-controls">
+                <a href="index_Projeto.html" class="button primary-button">Sair</a>
+            </div>
+
+
+            <div class="controls-group">
+                    <button id="importSpreadsheetBtn" title="Importar planilha de visitas">Importar Planilha</button>
+                    <input type="file" id="spreadsheetFileInput" accept=".csv, .xlsx" style="display: none;">
+                </div>
+
+  <div class="sidebar-bottom-controls">
+    <button id="integrateSiclaBtn" title="Integrar o cronograma com o SGCIA">Integrar SICLA</button>
+                <button id="printScheduleBtn" title="Imprimir o cronograma atual">Imprimir Cronograma</button>
+                
+            </div>
+            <div class="sidebar-navigation-controls">
+                <a href="acompanhamento_Cronograma.html" class="button primary-button">Consulta de Acompanhamento</a>
+            </div>
+
+            <div id="calendarInstructions">
+                <p><strong>Dica:</strong> Para copiar uma atividade para outro dia ou turno, arraste o cartão segurando a tecla <kbd>ALT</kbd>.</p>
+                <p><strong>Dica:</strong> Para alocar um <strong>grupo inteiro de visitas</strong> para um dia e turno, arraste o <strong>título da lista</strong> para o calendário.</p>
+            </div>
+        </br>
+
+            <!-- NOVO BOTÃO DE NAVEGAÇÃO -->
+            
+            <!-- FIM DO NOVO BOTÃO DE NAVEGAÇÃO -->
+
+            <div class="sidebar-controls">
+                <div class="controls-group">
+                    <label for="moduleFilter" class="sr-only">Filtrar por Módulo</label>
+                    <select id="moduleFilter" title="Filtrar por Módulo">
+                        <option value="all">Todos os Módulos</option>
+                        <!-- Opções serão populadas via JS -->
+                    </select>
+                    <label for="technicianSelector" class="sr-only">Selecionar Técnicos</label>
+                    <select id="technicianSelector" multiple title="Selecionar Técnicos">
+                        <!-- Options serão populadas via JS -->
+                    </select>
+                </div>
+                
+            </div>
+            
+            <div id="boardsContainer" class="accordion-boards">
+                <!-- As Visitas (Boards) serão renderizadas aqui pelo JS como itens de acordeão -->
+            </div>
+
+          
+        </aside>
+
+        <main class="calendar-main-content">
+            <div class="calendar-section">
+                <div class="calendar-header">
+                    <div class="calendar-nav">
+                        <button id="prevMonthBtn" title="Mês anterior">&lt;</button>
+                        <h2 id="calendarMonthYear"></h2>
+                        <button id="nextMonthBtn" title="Próximo mês">&gt;</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Dom</div>
+                    <div class="calendar-weekday">Seg</div>
+                    <div class="calendar-weekday">Ter</div>
+                    <div class="calendar-weekday">Qua</div>
+                    <div class="calendar-weekday">Qui</div>
+                    <div class="calendar-weekday">Sex</div>
+                    <div class="calendar-weekday">Sab</div>
+                </div>
+                <div id="calendarGrid">
+                    <!-- Os dias do calendário serão renderizados aqui pelo JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Elemento para o ghost do drag-and-drop, fora do layout principal -->
+    <div id="boardDragGhost" style="display: none;"></div>
+
+    <!-- Bibliotecas JS externas (CDNs) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    
+    <!-- SEU JAVASCRIPT PERSONALIZADO - CERTIFIQUE-SE DE QUE O NOME DO ARQUIVO E O CAMINHO ESTÃO CORRETOS -->
+    <script src="script_Cronograma.js"></script>
+</body>
+</html>
