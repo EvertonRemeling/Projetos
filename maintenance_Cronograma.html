@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manutenção de Agendas - Cronograma</title>
+    <!-- Link para a fonte Inter do Google Fonts (moderna e limpa) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link para o Font Awesome para os ícones - AGORA SEM integrity E crossorigin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+
+    <!-- Seu CSS personalizado para a manutenção -->
+    <link rel="stylesheet" href="maintenance_Cronograma.css"> 
+</head>
+<body>
+    <div class="maintenance-wrapper">
+        <aside class="maintenance-sidebar">
+            <h2>Filtros & Ações</h2>
+            <div class="filters-group">
+                <label for="technicianFilter">Técnico:</label>
+                <select id="technicianFilter" multiple>
+                    <!-- Opções populadas via JS -->
+                </select>
+            </div>
+            <div class="filters-group">
+                <label for="moduleFilter">Módulo:</label>
+                <select id="moduleFilter">
+                    <option value="">Todos os Módulos</option>
+                    <!-- Opções populadas via JS -->
+                </select>
+            </div>
+
+            <div class="actions-group">
+                <button id="backToMainBtn" class="button primary-button">Voltar ao Cronograma Principal</button>
+                <button id="suggestDatesBtn" class="button secondary-button" disabled>Sugira Nova Data(s)</button> 
+                <button id="applyAllReschedulesBtn" class="button primary-button" disabled>Aplicar Remarcações</button>
+            </div>
+
+            <div class="info-panel">
+                <h3>Atividade Selecionada:</h3>
+                <p><strong>Descrição:</strong> <span id="selectedActivityDesc">N/A</span></p>
+                <p><strong>Técnicos:</strong> <span id="selectedActivityTechs">N/A</span></p>
+                <p><strong>Data/Turno Atual:</strong> <span id="selectedActivityCurrent">N/A</span></p>
+                
+                <div class="manual-reschedule-fields">
+                    <label for="manualNewDate">Nova Data:</label>
+                    <input type="date" id="manualNewDate" disabled>
+                    <label for="manualNewShift">Novo Turno:</label>
+                    <select id="manualNewShift" disabled>
+                        <option value="">Selecione</option>
+                        <option value="Manhã (08h-12h)">Manhã</option>
+                        <option value="Tarde (13h-17h)">Tarde</option>
+                    </select>
+                </div>
+                
+                <p class="slot-status"><span id="selectedActivityNewStatus" class="hidden"></span></p>
+            </div>
+
+        </aside>
+
+        <main class="maintenance-content">
+            <h1>Manutenção de Agendas Alocadas</h1> 
+            
+            <div class="table-and-calendar-wrapper"> 
+                <div class="maintenance-table-container table-responsive">
+                    <table class="maintenance-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAllActivities" title="Marcar todos"></th>
+                                <th>Data Atual</th>
+                                <th>Dia Semana</th>
+                                <th>Turno Atual</th>
+                                <th>Técnicos</th>
+                                <th>Módulo</th>
+                                <th>Assunto</th>
+                                <th>Nova Data</th>
+                                <th>Novo Turno</th>
+                                <th>Status (Novo)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="maintenanceTableBody">
+                            <!-- Atividades alocadas serão carregadas aqui via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="occupancy-calendar-section">
+                    <h2>Calendário de Ocupação</h2>
+                    <div class="calendar-header">
+                        <div class="calendar-nav">
+                            <button id="prevMonthCalendarBtn">&lt;</button>
+                            <h3 id="occupancyCalendarMonthYear"></h3>
+                            <button id="nextMonthCalendarBtn">&gt;</button>
+                        </div>
+                    </div>
+                    
+                    <div class="occupancy-calendar-weekdays">
+                        <div>Dom</div>
+                        <div>Seg</div>
+                        <div>Ter</div>
+                        <div>Qua</div>
+                        <div>Qui</div>
+                        <div>Sex</div>
+                        <div>Sab</div>
+                    </div>
+                    <div id="occupancyCalendarGrid">
+                        <!-- Calendário de ocupação será renderizado aqui pelo JS -->
+                    </div>
+                </div>
+            </div> 
+        </main>
+    </div>
+
+    <!-- Script JavaScript para a manutenção -->
+    <script src="maintenance_Cronograma.js"></script>
+</body>
+</html>

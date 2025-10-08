@@ -1,0 +1,614 @@
+/* Importa a fonte Inter do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Variáveis de cores (pode copiar do seu style_Cronograma.css se já tiver) */
+:root {
+    --primary-color: #007bff; /* Azul */
+    --secondary-color: #6c757d; /* Cinza */
+    --accent-color: #ffc107; /* Amarelo (para cópias ou destaque) */
+    --success-color: #28a745; /* Verde */
+    --danger-color: #dc3545; /* Vermelho */
+    --info-color: #17a2b8; /* Ciano */
+    --warning-color: #ffc107; /* Amarelo */
+    --light-color: #f8f9fa; /* Cinza claro */
+    --dark-color: #343a40; /* Cinza escuro */
+
+    --text-color: #333; /* Cor do texto padrão */
+    --heading-color: #222; /* Cor de títulos */
+    --white-bg: #ffffff; /* Fundo branco para cards e painéis */
+    --light-bg: #f2f5f9; /* Fundo leve para o corpo */
+    --border-color: #e0e0e0; /* Cor de borda padrão */
+    --hover-color: #0056b3; /* Cor de hover para botões primários */
+
+    --border-radius: 8px; /* Raio da borda padrão */
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    --transition-speed: 0.3s; /* Velocidade de transição padrão */
+}
+
+/* Base styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Layout container */
+.maintenance-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar for filters and actions */
+.maintenance-sidebar {
+    width: 280px;
+    background-color: var(--white-bg);
+    padding: 25px;
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0; /* Impede que a sidebar encolha */
+}
+
+.maintenance-sidebar h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.maintenance-sidebar .filters-group,
+.maintenance-sidebar .actions-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.maintenance-sidebar label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--dark-color);
+}
+
+.maintenance-sidebar select,
+.maintenance-sidebar .button {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white-bg);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9em;
+    color: var(--text-color);
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.maintenance-sidebar select:focus,
+.maintenance-sidebar .button:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.maintenance-sidebar .button {
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+    border: none; /* Remove a borda padrão para botões */
+}
+
+.maintenance-sidebar .button.primary-button {
+    background-color: var(--primary-color);
+    color: var(--white-bg);
+}
+
+.maintenance-sidebar .button.primary-button:hover:not(:disabled) {
+    background-color: var(--hover-color);
+}
+
+.maintenance-sidebar .button.secondary-button {
+    background-color: var(--secondary-color);
+    color: var(--white-bg);
+}
+
+.maintenance-sidebar .button.secondary-button:hover:not(:disabled) {
+    background-color: #5a6268; /* tom mais escuro */
+}
+
+.maintenance-sidebar .button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Info Panel */
+.info-panel {
+    background-color: var(--light-bg);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    margin-top: 20px; /* Ajustado para ficar logo abaixo dos botões */
+    text-align: center;
+}
+
+.info-panel h3 {
+    font-size: 1.1em;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 5px;
+}
+
+.info-panel p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    text-align: left; /* Garante alinhamento esquerdo para os parágrafos */
+}
+
+.info-panel p strong {
+    color: var(--dark-color);
+}
+
+.info-panel .slot-status {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.info-panel .slot-status.status-occupied {
+    background-color: #f8d7da; /* Light red */
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.info-panel .slot-status.status-free {
+    background-color: #d4edda; /* Light green */
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+
+/* Main content area */
+.maintenance-content {
+    flex-grow: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column; /* Agora a main empilha seus filhos */
+    gap: 20px;
+    overflow-x: auto; /* Permite rolagem horizontal para o conteúdo se necessário */
+}
+
+/* Título principal centralizado */
+.maintenance-content h1 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    text-align: center; /* Centraliza o título */
+}
+
+/* NOVO: Wrapper para a tabela e o calendário */
+.table-and-calendar-wrapper {
+    display: flex; /* Mantém a tabela e o calendário lado a lado dentro deste wrapper */
+    flex-direction: row;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    gap: 20px; /* Espaçamento entre a tabela e o calendário */
+    flex-grow: 1; /* Ocupa o espaço restante na main */
+}
+
+/* Define como a tabela e o calendário compartilham o espaço */
+.maintenance-table-container {
+    flex: 2; /* A tabela ocupa o dobro do espaço que o calendário */
+    min-width: 650px; /* Largura mínima para a tabela antes de quebrar */
+    background-color: var(--white-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    overflow-x: auto; /* Garante que a tabela possa rolar se for muito larga */
+    min-height: 200px; /* Para prevenir que container fique sem altura antes do conteúdo */
+}
+
+.maintenance-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap; /* Impede que o texto quebre por padrão */
+    min-width: 900px; /* Garante largura mínima para a tabela não encolher muito */
+}
+
+.maintenance-table th,
+.maintenance-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9em;
+}
+
+.maintenance-table th {
+    background-color: var(--primary-color);
+    color: var(--white-bg);
+    font-weight: 600;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.maintenance-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.maintenance-table tbody tr:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.maintenance-table tbody tr.selected-row {
+    background-color: #e0f2f7; /* Cor de destaque para linha selecionada */
+    border-left: 5px solid var(--primary-color);
+}
+
+.maintenance-table td:first-child {
+    width: 40px; /* Largura para o checkbox */
+    text-align: center;
+}
+
+.maintenance-table th:nth-child(7), /* Coluna Assunto */
+.maintenance-table td:nth-child(7) {
+    white-space: normal; /* Permite quebra de linha */
+    word-wrap: break-word; /* Força quebra de palavras longas */
+    max-width: 200px; /* Limita a largura máxima para não expandir demais */
+    min-width: 120px;
+}
+.maintenance-table th:nth-child(2), /* Data Atual */
+.maintenance-table td:nth-child(2),
+.maintenance-table th:nth-child(8), /* Nova Data */
+.maintenance-table td:nth-child(8) {
+    width: 100px;
+}
+.maintenance-table th:nth-child(3), /* Dia Semana */
+.maintenance-table td:nth-child(3) {
+    width: 80px;
+}
+.maintenance-table th:nth-child(4), /* Turno Atual */
+.maintenance-table td:nth-child(4),
+.maintenance-table th:nth-child(9), /* Novo Turno */
+.maintenance-table td:nth-child(9) {
+    width: 90px;
+}
+.maintenance-table th:nth-child(10), /* Status (Novo) */
+.maintenance-table td:nth-child(10) {
+    width: 90px;
+    text-align: center;
+}
+
+/* Status colors in table */
+.new-status-cell {
+    font-weight: bold;
+}
+.new-status-cell.status-occupied {
+    color: var(--danger-color);
+}
+.new-status-cell.status-free {
+    color: var(--success-color);
+}
+
+.no-activities-message {
+    text-align: center;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+/* Calendar styles */
+.occupancy-calendar-section {
+    flex: 1; /* O calendário ocupa o restante do espaço */
+    min-width: 350px; /* Largura mínima para o calendário antes de quebrar */
+    background-color: var(--white-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    padding: 20px;
+}
+
+.occupancy-calendar-section h2 {
+    font-size: 1.5em;
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendar-nav button {
+    background-color: var(--secondary-color);
+    color: var(--white-bg);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.calendar-nav button:hover {
+    background-color: #5a6268;
+}
+
+#occupancyCalendarMonthYear {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--heading-color);
+    min-width: 150px; /* Garante que o texto do mês não "pule" */
+    text-align: center;
+}
+
+.occupancy-calendar-weekdays,
+#occupancyCalendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.occupancy-calendar-weekdays div {
+    font-weight: 600;
+    text-align: center;
+    padding: 8px 0;
+    background-color: var(--primary-color);
+    color: var(--white-bg);
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.occupancy-calendar-day {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+    font-size: 0.85em;
+}
+
+.occupancy-calendar-day.empty {
+    background-color: #f0f0f0;
+    visibility: hidden; /* Esconde dias vazios para manter o layout */
+}
+
+.occupancy-calendar-day .day-number {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.occupancy-shift-slot {
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+    font-size: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 35px; /* Altura mínima para slots */
+}
+
+.occupancy-shift-slot.free {
+    background-color: #d4edda; /* Light green */
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.occupancy-shift-slot.occupied {
+    background-color: #f8d7da; /* Light red */
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.occupancy-shift-slot:hover {
+    filter: brightness(0.9);
+}
+
+.occupancy-shift-slot.selected-occupancy-slot {
+    outline: 2px solid var(--accent-color); /* Amarelo de destaque */
+    outline-offset: 2px;
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+}
+
+/* --- ESTILOS PARA EDIÇÃO MANUAL NO INFO PANEL --- */
+.manual-reschedule-fields {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.manual-reschedule-fields label {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: var(--dark-color); /* Usar dark-color para labels */
+}
+
+.manual-reschedule-fields input[type="date"],
+.manual-reschedule-fields select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--white-bg);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9em;
+    color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.manual-reschedule-fields input[type="date"]:focus,
+.manual-reschedule-fields select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.manual-reschedule-fields input[type="date"]:disabled,
+.manual-reschedule-fields select:disabled {
+    background-color: #e9ecef; /* Light gray for disabled state */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Esconde o elemento quando não há conteúdo */
+.hidden {
+    display: none !important;
+}
+
+.info-panel p.slot-status {
+    text-align: center; /* Centraliza o status final */
+    margin-top: 10px;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .maintenance-wrapper {
+        flex-direction: column; /* Sidebar e Main Content empilham */
+    }
+    .maintenance-sidebar {
+        width: 100%;
+        max-width: none;
+        flex-direction: row; /* Filtros e ações da sidebar ficam lado a lado */
+        flex-wrap: wrap;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .maintenance-sidebar h2 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .maintenance-sidebar .filters-group,
+    .maintenance-sidebar .actions-group,
+    .maintenance-sidebar .info-panel { /* Info panel também participa do fluxo da sidebar */
+        flex-basis: 48%; /* Ocupa quase metade da largura */
+        margin-top: 10px; /* Espaçamento entre os itens na sidebar responsiva */
+    }
+    .maintenance-sidebar select,
+    .maintenance-sidebar .button {
+        flex-basis: 100%; 
+    }
+
+    /* O wrapper da tabela e calendário agora se comporta como flexível */
+    .table-and-calendar-wrapper {
+        flex-direction: row; /* Tenta manter lado a lado */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .maintenance-table-container,
+    .occupancy-calendar-section {
+        min-width: 450px; /* Reduz o min-width para telas menores */
+        flex: 1; /* Permite que ambos encolham um pouco mais */
+    }
+}
+
+@media (max-width: 1050px) { /* Novo breakpoint: Tabela e Calendário empilham */
+    .table-and-calendar-wrapper {
+        flex-direction: column; /* Tabela e Calendário empilham */
+    }
+    .maintenance-table-container,
+    .occupancy-calendar-section {
+        flex: none; /* Reseta o flex grow/shrink */
+        width: 100%; /* Ocupam a largura total disponível */
+        min-width: unset; /* Remove min-width, deixa o conteúdo interno gerenciar a rolagem */
+    }
+    .maintenance-table { /* A tabela interna ainda precisa de largura mínima e scroll */
+        min-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .maintenance-sidebar {
+        flex-direction: column; /* Filtros e ações da sidebar voltam a empilhar */
+    }
+    .maintenance-sidebar .filters-group,
+    .maintenance-sidebar .actions-group,
+    .maintenance-sidebar .info-panel {
+        flex-basis: auto; /* Reseta a base */
+        width: 100%; /* Ocupa a largura total */
+    }
+    .maintenance-content {
+        padding: 15px;
+    }
+    .maintenance-content h1 {
+        font-size: 1.5em;
+    }
+    .maintenance-table th,
+    .maintenance-table td {
+        padding: 10px 8px;
+        font-size: 0.8em;
+    }
+    .maintenance-table {
+        min-width: 650px; /* Ajusta min-width para o viewport */
+    }
+    .occupancy-calendar-day {
+        min-height: 80px;
+    }
+    .occupancy-shift-slot {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-width: 480px) {
+    .maintenance-sidebar {
+        padding: 10px;
+    }
+    .maintenance-sidebar h2 {
+        font-size: 1.1em;
+    }
+    .maintenance-table {
+        min-width: 450px; /* Mais uma redução para telas pequenas */
+    }
+    .maintenance-table th,
+    .maintenance-table td {
+        padding: 8px 5px;
+        font-size: 0.7em;
+    }
+    .occupancy-calendar-day {
+        min-height: 60px;
+    }
+    .occupancy-shift-slot {
+        font-size: 0.7em;
+    }
+}
